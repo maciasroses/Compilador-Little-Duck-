@@ -1,0 +1,14 @@
+{
+  "name": "compiladores---little-duck",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "A00573134 - Macias Romero Jorge Humberto",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "antlr4": "^4.13.1-patch-1"
+  }
+}
