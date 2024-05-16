@@ -4,13 +4,15 @@ options {
 	tokenVocab = LittleDuckLexer;
 }
 
-program: PROGRAM ID SEMICOLON has_vars has_funcs MAIN body END;
+program:
+	PROGRAM program_id SEMICOLON has_vars has_funcs MAIN body END;
+program_id: ID;
 has_vars: vars?;
 has_funcs: funcs*;
 
 vars: VAR var_complement;
-var_complement: (id_complement COLON type SEMICOLON)+;
-id_complement: ID (COMMA ID)*;
+var_complement: (id_complement SEMICOLON)+;
+id_complement: ID (COMMA ID)* COLON type;
 
 type: INT | FLOAT;
 
@@ -57,14 +59,12 @@ factor_operations: factor_operation_plus_minus?;
 factor_operation_plus_minus: PLUS | MINUS;
 
 funcs:
-	VOID ID PARENTHESIS_OPEN funcs_args PARENTHESIS_CLOSE SQUARE_BRACKET_OPEN funcs_vars body
+	VOID funcs_id PARENTHESIS_OPEN funcs_args PARENTHESIS_CLOSE SQUARE_BRACKET_OPEN funcs_vars body
 		SQUARE_BRACKET_CLOSE SEMICOLON;
+funcs_id: ID;
 funcs_vars: vars?;
 funcs_args: (ID COLON type (COMMA ID COLON type)*)?;
-// funcs_args: args_aux?; args_aux: (ID COLON type COMMA)* | ID COLON type;
 
 f_call:
 	ID PARENTHESIS_OPEN f_call_expression PARENTHESIS_CLOSE SEMICOLON;
 f_call_expression: (expression (COMMA expression)*)?;
-// f_call_expression: f_call_expression_aux?; f_call_expression_aux: (expression COMMA)* |
-// expression;

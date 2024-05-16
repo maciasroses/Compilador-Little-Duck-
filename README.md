@@ -2,7 +2,7 @@
 
 ## Entrega #0
 
-<img src="./proyecto.png" alt="Reglas del lenguaje" />
+<img src="./assets/proyecto.png" alt="Reglas del lenguaje" />
 
 #### Expresiones Regulares
 
@@ -54,3 +54,44 @@ Ahora, la forma de correr los tests es con los siguientes pasos:
 > npm install
 
 > npm run go
+
+## Entrega #2
+
+En esta etapa, el primer paso fue decidir qué tipo de estructura se usaría para la parte de la semántica del directorio de funciones y sus tablas de variables, yéndonos por el camino más ágil por _llaves_ como lo son los **diccionarios** y seccionadas en clases.
+Por otro lado, también se tuvo que crear el cubo semántico (el cual **no** haremos uso de él **todavía**) para tener los tipos que arrojaría cuando se haga uso de un operador. Para estos casos, decidí hacer una tabla, donde **I** es igual a _INTEGER_, mientras que **F** es igual a _FLOAT_, siendo los únicos dos tipos de variable con los que cuenta nuestro programa; pudiendo interacturar con distintos operadores y demostrando una salida para cuando X variable de cierto tipo (I o F) se procesan de acuerdo al operador.
+En la siguiente tabla se muestran todas las combinaciones posibles para los operadores con las que cuenta la gramática:
+
+|     | I I | I F | F I | F F |
+| --- | --- | --- | --- | --- |
+| +   | I   | F   | F   | F   |
+| -   | I   | F   | F   | F   |
+| \*  | I   | F   | F   | F   |
+| /   | I   | F   | F   | F   |
+| >   | I   | I   | I   | I   |
+| <   | I   | I   | I   | I   |
+| !=  | I   | I   | I   | I   |
+| =   | I   | I   | F   | F   |
+
+Después, se establecieron los puntos neurálgicos
+
+<img src="./assets/program.jpeg" alt="Reglas del lenguaje" />
+
+1. En este punto se crear el directorio de funciones para guardar el nombre del programa, significando que no se puede crear una función después con el mismo nombre.
+
+2. Para este punto, una vez se hayan creado las variables, estas serán globales y se guardarán para la función "programa".
+
+<img src="./assets/vars.jpeg" alt="Reglas del lenguaje" />
+
+3. Se inicializa la tabla de variables para la función que se esté trabajando en ese momento.
+
+4. Se checa si ya existe dicha variable en ese contexto, en caso de que sí, se arroja una excepción y manda error por variable ya declarada.
+
+5. Se asocia el tipo a toda la lista de variables del contexto que estemos hablando.
+
+<img src="./assets/funcs.jpeg" alt="Reglas del lenguaje" />
+
+6. Se crear la función y se agrega al diccionario de funciones, revisando también si ya existe, en caso de que sí, arrojaría un error de función ya declarada como pasa con la lista de variables.
+
+7. Se crean los argumentos y se va revisando si ya existen, en caso de que sí, arroja un error de argumento ya declarado.
+
+8. Una vez se hayan creado las variables, estas se guardarán también en el listado de variables de la función que estemos hablando.

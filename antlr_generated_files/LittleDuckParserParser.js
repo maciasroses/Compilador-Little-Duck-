@@ -2,87 +2,89 @@
 // jshint ignore: start
 import antlr4 from 'antlr4';
 import LittleDuckParserListener from './LittleDuckParserListener.js';
-const serializedATN = [4,1,34,276,2,0,7,0,2,1,7,1,2,2,7,2,2,3,7,3,2,4,7,
+const serializedATN = [4,1,34,285,2,0,7,0,2,1,7,1,2,2,7,2,2,3,7,3,2,4,7,
 4,2,5,7,5,2,6,7,6,2,7,7,7,2,8,7,8,2,9,7,9,2,10,7,10,2,11,7,11,2,12,7,12,
 2,13,7,13,2,14,7,14,2,15,7,15,2,16,7,16,2,17,7,17,2,18,7,18,2,19,7,19,2,
 20,7,20,2,21,7,21,2,22,7,22,2,23,7,23,2,24,7,24,2,25,7,25,2,26,7,26,2,27,
 7,27,2,28,7,28,2,29,7,29,2,30,7,30,2,31,7,31,2,32,7,32,2,33,7,33,2,34,7,
-34,2,35,7,35,2,36,7,36,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,1,3,1,85,8,
-1,1,2,5,2,88,8,2,10,2,12,2,91,9,2,1,3,1,3,1,3,1,4,1,4,1,4,1,4,1,4,4,4,101,
-8,4,11,4,12,4,102,1,5,1,5,1,5,5,5,108,8,5,10,5,12,5,111,9,5,1,6,1,6,1,7,
-1,7,1,7,1,7,1,8,5,8,120,8,8,10,8,12,8,123,9,8,1,9,1,9,1,9,1,9,1,9,3,9,130,
-8,9,1,10,1,10,1,10,1,10,1,10,1,10,1,11,1,11,1,11,1,11,1,11,3,11,143,8,11,
-1,12,1,12,5,12,147,8,12,10,12,12,12,150,9,12,1,13,1,13,1,13,1,13,1,13,1,
-14,1,14,1,14,1,14,1,14,1,14,1,14,1,14,1,15,1,15,1,15,1,15,1,15,1,15,1,15,
-1,15,1,16,1,16,3,16,175,8,16,1,17,1,17,1,18,1,18,1,18,1,19,1,19,1,19,3,19,
-185,8,19,1,20,1,20,1,21,1,21,1,21,1,22,1,22,1,22,5,22,195,8,22,10,22,12,
-22,198,9,22,1,23,1,23,1,24,1,24,1,24,1,25,1,25,1,25,5,25,208,8,25,10,25,
-12,25,211,9,25,1,26,1,26,1,27,1,27,3,27,217,8,27,1,28,1,28,1,28,1,28,1,29,
-1,29,3,29,225,8,29,1,30,3,30,228,8,30,1,31,1,31,1,32,1,32,1,32,1,32,1,32,
-1,32,1,32,1,32,1,32,1,32,1,32,1,33,3,33,244,8,33,1,34,1,34,1,34,1,34,1,34,
-1,34,1,34,5,34,253,8,34,10,34,12,34,256,9,34,3,34,258,8,34,1,35,1,35,1,35,
-1,35,1,35,1,35,1,36,1,36,1,36,5,36,269,8,36,10,36,12,36,272,9,36,3,36,274,
-8,36,1,36,0,0,37,0,2,4,6,8,10,12,14,16,18,20,22,24,26,28,30,32,34,36,38,
-40,42,44,46,48,50,52,54,56,58,60,62,64,66,68,70,72,0,5,1,0,8,9,1,0,33,34,
-1,0,20,22,1,0,23,24,1,0,25,26,261,0,74,1,0,0,0,2,84,1,0,0,0,4,89,1,0,0,0,
-6,92,1,0,0,0,8,100,1,0,0,0,10,104,1,0,0,0,12,112,1,0,0,0,14,114,1,0,0,0,
-16,121,1,0,0,0,18,129,1,0,0,0,20,131,1,0,0,0,22,142,1,0,0,0,24,148,1,0,0,
-0,26,151,1,0,0,0,28,156,1,0,0,0,30,164,1,0,0,0,32,174,1,0,0,0,34,176,1,0,
-0,0,36,178,1,0,0,0,38,184,1,0,0,0,40,186,1,0,0,0,42,188,1,0,0,0,44,196,1,
-0,0,0,46,199,1,0,0,0,48,201,1,0,0,0,50,209,1,0,0,0,52,212,1,0,0,0,54,216,
-1,0,0,0,56,218,1,0,0,0,58,224,1,0,0,0,60,227,1,0,0,0,62,229,1,0,0,0,64,231,
-1,0,0,0,66,243,1,0,0,0,68,257,1,0,0,0,70,259,1,0,0,0,72,273,1,0,0,0,74,75,
-5,1,0,0,75,76,5,31,0,0,76,77,5,6,0,0,77,78,3,2,1,0,78,79,3,4,2,0,79,80,5,
-2,0,0,80,81,3,14,7,0,81,82,5,3,0,0,82,1,1,0,0,0,83,85,3,6,3,0,84,83,1,0,
-0,0,84,85,1,0,0,0,85,3,1,0,0,0,86,88,3,64,32,0,87,86,1,0,0,0,88,91,1,0,0,
-0,89,87,1,0,0,0,89,90,1,0,0,0,90,5,1,0,0,0,91,89,1,0,0,0,92,93,5,4,0,0,93,
-94,3,8,4,0,94,7,1,0,0,0,95,96,3,10,5,0,96,97,5,5,0,0,97,98,3,12,6,0,98,99,
-5,6,0,0,99,101,1,0,0,0,100,95,1,0,0,0,101,102,1,0,0,0,102,100,1,0,0,0,102,
-103,1,0,0,0,103,9,1,0,0,0,104,109,5,31,0,0,105,106,5,7,0,0,106,108,5,31,
-0,0,107,105,1,0,0,0,108,111,1,0,0,0,109,107,1,0,0,0,109,110,1,0,0,0,110,
-11,1,0,0,0,111,109,1,0,0,0,112,113,7,0,0,0,113,13,1,0,0,0,114,115,5,10,0,
-0,115,116,3,16,8,0,116,117,5,11,0,0,117,15,1,0,0,0,118,120,3,18,9,0,119,
-118,1,0,0,0,120,123,1,0,0,0,121,119,1,0,0,0,121,122,1,0,0,0,122,17,1,0,0,
-0,123,121,1,0,0,0,124,130,3,26,13,0,125,130,3,30,15,0,126,130,3,28,14,0,
-127,130,3,70,35,0,128,130,3,20,10,0,129,124,1,0,0,0,129,125,1,0,0,0,129,
-126,1,0,0,0,129,127,1,0,0,0,129,128,1,0,0,0,130,19,1,0,0,0,131,132,5,12,
-0,0,132,133,5,13,0,0,133,134,3,22,11,0,134,135,5,14,0,0,135,136,5,6,0,0,
-136,21,1,0,0,0,137,138,3,36,18,0,138,139,3,24,12,0,139,143,1,0,0,0,140,141,
-5,32,0,0,141,143,3,24,12,0,142,137,1,0,0,0,142,140,1,0,0,0,143,23,1,0,0,
-0,144,145,5,7,0,0,145,147,3,22,11,0,146,144,1,0,0,0,147,150,1,0,0,0,148,
-146,1,0,0,0,148,149,1,0,0,0,149,25,1,0,0,0,150,148,1,0,0,0,151,152,5,31,
-0,0,152,153,5,15,0,0,153,154,3,36,18,0,154,155,5,6,0,0,155,27,1,0,0,0,156,
-157,5,17,0,0,157,158,3,14,7,0,158,159,5,16,0,0,159,160,5,13,0,0,160,161,
-3,36,18,0,161,162,5,14,0,0,162,163,5,6,0,0,163,29,1,0,0,0,164,165,5,18,0,
-0,165,166,5,13,0,0,166,167,3,36,18,0,167,168,5,14,0,0,168,169,3,14,7,0,169,
-170,3,32,16,0,170,171,5,6,0,0,171,31,1,0,0,0,172,173,5,19,0,0,173,175,3,
-14,7,0,174,172,1,0,0,0,174,175,1,0,0,0,175,33,1,0,0,0,176,177,7,1,0,0,177,
-35,1,0,0,0,178,179,3,42,21,0,179,180,3,38,19,0,180,37,1,0,0,0,181,182,3,
-40,20,0,182,183,3,42,21,0,183,185,1,0,0,0,184,181,1,0,0,0,184,185,1,0,0,
-0,185,39,1,0,0,0,186,187,7,2,0,0,187,41,1,0,0,0,188,189,3,48,24,0,189,190,
-3,44,22,0,190,43,1,0,0,0,191,192,3,46,23,0,192,193,3,48,24,0,193,195,1,0,
-0,0,194,191,1,0,0,0,195,198,1,0,0,0,196,194,1,0,0,0,196,197,1,0,0,0,197,
-45,1,0,0,0,198,196,1,0,0,0,199,200,7,3,0,0,200,47,1,0,0,0,201,202,3,54,27,
-0,202,203,3,50,25,0,203,49,1,0,0,0,204,205,3,52,26,0,205,206,3,54,27,0,206,
-208,1,0,0,0,207,204,1,0,0,0,208,211,1,0,0,0,209,207,1,0,0,0,209,210,1,0,
-0,0,210,51,1,0,0,0,211,209,1,0,0,0,212,213,7,4,0,0,213,53,1,0,0,0,214,217,
-3,56,28,0,215,217,3,58,29,0,216,214,1,0,0,0,216,215,1,0,0,0,217,55,1,0,0,
-0,218,219,5,13,0,0,219,220,3,36,18,0,220,221,5,14,0,0,221,57,1,0,0,0,222,
-225,5,31,0,0,223,225,3,34,17,0,224,222,1,0,0,0,224,223,1,0,0,0,225,59,1,
-0,0,0,226,228,3,62,31,0,227,226,1,0,0,0,227,228,1,0,0,0,228,61,1,0,0,0,229,
-230,7,3,0,0,230,63,1,0,0,0,231,232,5,27,0,0,232,233,5,31,0,0,233,234,5,13,
-0,0,234,235,3,68,34,0,235,236,5,14,0,0,236,237,5,28,0,0,237,238,3,66,33,
-0,238,239,3,14,7,0,239,240,5,29,0,0,240,241,5,6,0,0,241,65,1,0,0,0,242,244,
-3,6,3,0,243,242,1,0,0,0,243,244,1,0,0,0,244,67,1,0,0,0,245,246,5,31,0,0,
-246,247,5,5,0,0,247,254,3,12,6,0,248,249,5,7,0,0,249,250,5,31,0,0,250,251,
-5,5,0,0,251,253,3,12,6,0,252,248,1,0,0,0,253,256,1,0,0,0,254,252,1,0,0,0,
-254,255,1,0,0,0,255,258,1,0,0,0,256,254,1,0,0,0,257,245,1,0,0,0,257,258,
-1,0,0,0,258,69,1,0,0,0,259,260,5,31,0,0,260,261,5,13,0,0,261,262,3,72,36,
-0,262,263,5,14,0,0,263,264,5,6,0,0,264,71,1,0,0,0,265,270,3,36,18,0,266,
-267,5,7,0,0,267,269,3,36,18,0,268,266,1,0,0,0,269,272,1,0,0,0,270,268,1,
-0,0,0,270,271,1,0,0,0,271,274,1,0,0,0,272,270,1,0,0,0,273,265,1,0,0,0,273,
-274,1,0,0,0,274,73,1,0,0,0,20,84,89,102,109,121,129,142,148,174,184,196,
-209,216,224,227,243,254,257,270,273];
+34,2,35,7,35,2,36,7,36,2,37,7,37,2,38,7,38,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,
+0,1,0,1,1,1,1,1,2,3,2,91,8,2,1,3,5,3,94,8,3,10,3,12,3,97,9,3,1,4,1,4,1,4,
+1,5,1,5,1,5,4,5,105,8,5,11,5,12,5,106,1,6,1,6,1,6,5,6,112,8,6,10,6,12,6,
+115,9,6,1,6,1,6,1,6,1,7,1,7,1,8,1,8,1,8,1,8,1,9,5,9,127,8,9,10,9,12,9,130,
+9,9,1,10,1,10,1,10,1,10,1,10,3,10,137,8,10,1,11,1,11,1,11,1,11,1,11,1,11,
+1,12,1,12,1,12,1,12,1,12,3,12,150,8,12,1,13,1,13,5,13,154,8,13,10,13,12,
+13,157,9,13,1,14,1,14,1,14,1,14,1,14,1,15,1,15,1,15,1,15,1,15,1,15,1,15,
+1,15,1,16,1,16,1,16,1,16,1,16,1,16,1,16,1,16,1,17,1,17,3,17,182,8,17,1,18,
+1,18,1,19,1,19,1,19,1,20,1,20,1,20,3,20,192,8,20,1,21,1,21,1,22,1,22,1,22,
+1,23,1,23,1,23,5,23,202,8,23,10,23,12,23,205,9,23,1,24,1,24,1,25,1,25,1,
+25,1,26,1,26,1,26,5,26,215,8,26,10,26,12,26,218,9,26,1,27,1,27,1,28,1,28,
+3,28,224,8,28,1,29,1,29,1,29,1,29,1,30,1,30,3,30,232,8,30,1,31,3,31,235,
+8,31,1,32,1,32,1,33,1,33,1,33,1,33,1,33,1,33,1,33,1,33,1,33,1,33,1,33,1,
+34,1,34,1,35,3,35,253,8,35,1,36,1,36,1,36,1,36,1,36,1,36,1,36,5,36,262,8,
+36,10,36,12,36,265,9,36,3,36,267,8,36,1,37,1,37,1,37,1,37,1,37,1,37,1,38,
+1,38,1,38,5,38,278,8,38,10,38,12,38,281,9,38,3,38,283,8,38,1,38,0,0,39,0,
+2,4,6,8,10,12,14,16,18,20,22,24,26,28,30,32,34,36,38,40,42,44,46,48,50,52,
+54,56,58,60,62,64,66,68,70,72,74,76,0,5,1,0,8,9,1,0,33,34,1,0,20,22,1,0,
+23,24,1,0,25,26,268,0,78,1,0,0,0,2,87,1,0,0,0,4,90,1,0,0,0,6,95,1,0,0,0,
+8,98,1,0,0,0,10,104,1,0,0,0,12,108,1,0,0,0,14,119,1,0,0,0,16,121,1,0,0,0,
+18,128,1,0,0,0,20,136,1,0,0,0,22,138,1,0,0,0,24,149,1,0,0,0,26,155,1,0,0,
+0,28,158,1,0,0,0,30,163,1,0,0,0,32,171,1,0,0,0,34,181,1,0,0,0,36,183,1,0,
+0,0,38,185,1,0,0,0,40,191,1,0,0,0,42,193,1,0,0,0,44,195,1,0,0,0,46,203,1,
+0,0,0,48,206,1,0,0,0,50,208,1,0,0,0,52,216,1,0,0,0,54,219,1,0,0,0,56,223,
+1,0,0,0,58,225,1,0,0,0,60,231,1,0,0,0,62,234,1,0,0,0,64,236,1,0,0,0,66,238,
+1,0,0,0,68,249,1,0,0,0,70,252,1,0,0,0,72,266,1,0,0,0,74,268,1,0,0,0,76,282,
+1,0,0,0,78,79,5,1,0,0,79,80,3,2,1,0,80,81,5,6,0,0,81,82,3,4,2,0,82,83,3,
+6,3,0,83,84,5,2,0,0,84,85,3,16,8,0,85,86,5,3,0,0,86,1,1,0,0,0,87,88,5,31,
+0,0,88,3,1,0,0,0,89,91,3,8,4,0,90,89,1,0,0,0,90,91,1,0,0,0,91,5,1,0,0,0,
+92,94,3,66,33,0,93,92,1,0,0,0,94,97,1,0,0,0,95,93,1,0,0,0,95,96,1,0,0,0,
+96,7,1,0,0,0,97,95,1,0,0,0,98,99,5,4,0,0,99,100,3,10,5,0,100,9,1,0,0,0,101,
+102,3,12,6,0,102,103,5,6,0,0,103,105,1,0,0,0,104,101,1,0,0,0,105,106,1,0,
+0,0,106,104,1,0,0,0,106,107,1,0,0,0,107,11,1,0,0,0,108,113,5,31,0,0,109,
+110,5,7,0,0,110,112,5,31,0,0,111,109,1,0,0,0,112,115,1,0,0,0,113,111,1,0,
+0,0,113,114,1,0,0,0,114,116,1,0,0,0,115,113,1,0,0,0,116,117,5,5,0,0,117,
+118,3,14,7,0,118,13,1,0,0,0,119,120,7,0,0,0,120,15,1,0,0,0,121,122,5,10,
+0,0,122,123,3,18,9,0,123,124,5,11,0,0,124,17,1,0,0,0,125,127,3,20,10,0,126,
+125,1,0,0,0,127,130,1,0,0,0,128,126,1,0,0,0,128,129,1,0,0,0,129,19,1,0,0,
+0,130,128,1,0,0,0,131,137,3,28,14,0,132,137,3,32,16,0,133,137,3,30,15,0,
+134,137,3,74,37,0,135,137,3,22,11,0,136,131,1,0,0,0,136,132,1,0,0,0,136,
+133,1,0,0,0,136,134,1,0,0,0,136,135,1,0,0,0,137,21,1,0,0,0,138,139,5,12,
+0,0,139,140,5,13,0,0,140,141,3,24,12,0,141,142,5,14,0,0,142,143,5,6,0,0,
+143,23,1,0,0,0,144,145,3,38,19,0,145,146,3,26,13,0,146,150,1,0,0,0,147,148,
+5,32,0,0,148,150,3,26,13,0,149,144,1,0,0,0,149,147,1,0,0,0,150,25,1,0,0,
+0,151,152,5,7,0,0,152,154,3,24,12,0,153,151,1,0,0,0,154,157,1,0,0,0,155,
+153,1,0,0,0,155,156,1,0,0,0,156,27,1,0,0,0,157,155,1,0,0,0,158,159,5,31,
+0,0,159,160,5,15,0,0,160,161,3,38,19,0,161,162,5,6,0,0,162,29,1,0,0,0,163,
+164,5,17,0,0,164,165,3,16,8,0,165,166,5,16,0,0,166,167,5,13,0,0,167,168,
+3,38,19,0,168,169,5,14,0,0,169,170,5,6,0,0,170,31,1,0,0,0,171,172,5,18,0,
+0,172,173,5,13,0,0,173,174,3,38,19,0,174,175,5,14,0,0,175,176,3,16,8,0,176,
+177,3,34,17,0,177,178,5,6,0,0,178,33,1,0,0,0,179,180,5,19,0,0,180,182,3,
+16,8,0,181,179,1,0,0,0,181,182,1,0,0,0,182,35,1,0,0,0,183,184,7,1,0,0,184,
+37,1,0,0,0,185,186,3,44,22,0,186,187,3,40,20,0,187,39,1,0,0,0,188,189,3,
+42,21,0,189,190,3,44,22,0,190,192,1,0,0,0,191,188,1,0,0,0,191,192,1,0,0,
+0,192,41,1,0,0,0,193,194,7,2,0,0,194,43,1,0,0,0,195,196,3,50,25,0,196,197,
+3,46,23,0,197,45,1,0,0,0,198,199,3,48,24,0,199,200,3,50,25,0,200,202,1,0,
+0,0,201,198,1,0,0,0,202,205,1,0,0,0,203,201,1,0,0,0,203,204,1,0,0,0,204,
+47,1,0,0,0,205,203,1,0,0,0,206,207,7,3,0,0,207,49,1,0,0,0,208,209,3,56,28,
+0,209,210,3,52,26,0,210,51,1,0,0,0,211,212,3,54,27,0,212,213,3,56,28,0,213,
+215,1,0,0,0,214,211,1,0,0,0,215,218,1,0,0,0,216,214,1,0,0,0,216,217,1,0,
+0,0,217,53,1,0,0,0,218,216,1,0,0,0,219,220,7,4,0,0,220,55,1,0,0,0,221,224,
+3,58,29,0,222,224,3,60,30,0,223,221,1,0,0,0,223,222,1,0,0,0,224,57,1,0,0,
+0,225,226,5,13,0,0,226,227,3,38,19,0,227,228,5,14,0,0,228,59,1,0,0,0,229,
+232,5,31,0,0,230,232,3,36,18,0,231,229,1,0,0,0,231,230,1,0,0,0,232,61,1,
+0,0,0,233,235,3,64,32,0,234,233,1,0,0,0,234,235,1,0,0,0,235,63,1,0,0,0,236,
+237,7,3,0,0,237,65,1,0,0,0,238,239,5,27,0,0,239,240,3,68,34,0,240,241,5,
+13,0,0,241,242,3,72,36,0,242,243,5,14,0,0,243,244,5,28,0,0,244,245,3,70,
+35,0,245,246,3,16,8,0,246,247,5,29,0,0,247,248,5,6,0,0,248,67,1,0,0,0,249,
+250,5,31,0,0,250,69,1,0,0,0,251,253,3,8,4,0,252,251,1,0,0,0,252,253,1,0,
+0,0,253,71,1,0,0,0,254,255,5,31,0,0,255,256,5,5,0,0,256,263,3,14,7,0,257,
+258,5,7,0,0,258,259,5,31,0,0,259,260,5,5,0,0,260,262,3,14,7,0,261,257,1,
+0,0,0,262,265,1,0,0,0,263,261,1,0,0,0,263,264,1,0,0,0,264,267,1,0,0,0,265,
+263,1,0,0,0,266,254,1,0,0,0,266,267,1,0,0,0,267,73,1,0,0,0,268,269,5,31,
+0,0,269,270,5,13,0,0,270,271,3,76,38,0,271,272,5,14,0,0,272,273,5,6,0,0,
+273,75,1,0,0,0,274,279,3,38,19,0,275,276,5,7,0,0,276,278,3,38,19,0,277,275,
+1,0,0,0,278,281,1,0,0,0,279,277,1,0,0,0,279,280,1,0,0,0,280,283,1,0,0,0,
+281,279,1,0,0,0,282,274,1,0,0,0,282,283,1,0,0,0,283,77,1,0,0,0,20,90,95,
+106,113,128,136,149,155,181,191,203,216,223,231,234,252,263,266,279,282];
 
 
 const atn = new antlr4.atn.ATNDeserializer().deserialize(serializedATN);
@@ -108,16 +110,17 @@ export default class LittleDuckParserParser extends antlr4.Parser {
                              "NOT_EQUAL", "PLUS", "MINUS", "ASTERISK", "SLASH", 
                              "VOID", "SQUARE_BRACKET_OPEN", "SQUARE_BRACKET_CLOSE", 
                              "WS", "ID", "CTE_STRING", "CTE_INT", "CTE_FLOAT" ];
-    static ruleNames = [ "program", "has_vars", "has_funcs", "vars", "var_complement", 
-                         "id_complement", "type", "body", "body_complement", 
-                         "statement", "print", "print_complement", "expression_print_aux", 
-                         "assign", "cycle", "condition", "condition_else", 
-                         "cte", "expression", "expression_aux", "expression_logics", 
+    static ruleNames = [ "program", "program_id", "has_vars", "has_funcs", 
+                         "vars", "var_complement", "id_complement", "type", 
+                         "body", "body_complement", "statement", "print", 
+                         "print_complement", "expression_print_aux", "assign", 
+                         "cycle", "condition", "condition_else", "cte", 
+                         "expression", "expression_aux", "expression_logics", 
                          "exp", "exp_aux", "exp_operation", "term", "term_aux", 
                          "term_operation", "factor", "factor_expression", 
                          "factor_aux", "factor_operations", "factor_operation_plus_minus", 
-                         "funcs", "funcs_vars", "funcs_args", "f_call", 
-                         "f_call_expression" ];
+                         "funcs", "funcs_id", "funcs_vars", "funcs_args", 
+                         "f_call", "f_call_expression" ];
 
     constructor(input) {
         super(input);
@@ -134,22 +137,45 @@ export default class LittleDuckParserParser extends antlr4.Parser {
 	    this.enterRule(localctx, 0, LittleDuckParserParser.RULE_program);
 	    try {
 	        this.enterOuterAlt(localctx, 1);
-	        this.state = 74;
-	        this.match(LittleDuckParserParser.PROGRAM);
-	        this.state = 75;
-	        this.match(LittleDuckParserParser.ID);
-	        this.state = 76;
-	        this.match(LittleDuckParserParser.SEMICOLON);
-	        this.state = 77;
-	        this.has_vars();
 	        this.state = 78;
-	        this.has_funcs();
+	        this.match(LittleDuckParserParser.PROGRAM);
 	        this.state = 79;
-	        this.match(LittleDuckParserParser.MAIN);
+	        this.program_id();
 	        this.state = 80;
-	        this.body();
+	        this.match(LittleDuckParserParser.SEMICOLON);
 	        this.state = 81;
+	        this.has_vars();
+	        this.state = 82;
+	        this.has_funcs();
+	        this.state = 83;
+	        this.match(LittleDuckParserParser.MAIN);
+	        this.state = 84;
+	        this.body();
+	        this.state = 85;
 	        this.match(LittleDuckParserParser.END);
+	    } catch (re) {
+	    	if(re instanceof antlr4.error.RecognitionException) {
+		        localctx.exception = re;
+		        this._errHandler.reportError(this, re);
+		        this._errHandler.recover(this, re);
+		    } else {
+		    	throw re;
+		    }
+	    } finally {
+	        this.exitRule();
+	    }
+	    return localctx;
+	}
+
+
+
+	program_id() {
+	    let localctx = new Program_idContext(this, this._ctx, this.state);
+	    this.enterRule(localctx, 2, LittleDuckParserParser.RULE_program_id);
+	    try {
+	        this.enterOuterAlt(localctx, 1);
+	        this.state = 87;
+	        this.match(LittleDuckParserParser.ID);
 	    } catch (re) {
 	    	if(re instanceof antlr4.error.RecognitionException) {
 		        localctx.exception = re;
@@ -168,15 +194,15 @@ export default class LittleDuckParserParser extends antlr4.Parser {
 
 	has_vars() {
 	    let localctx = new Has_varsContext(this, this._ctx, this.state);
-	    this.enterRule(localctx, 2, LittleDuckParserParser.RULE_has_vars);
+	    this.enterRule(localctx, 4, LittleDuckParserParser.RULE_has_vars);
 	    var _la = 0;
 	    try {
 	        this.enterOuterAlt(localctx, 1);
-	        this.state = 84;
+	        this.state = 90;
 	        this._errHandler.sync(this);
 	        _la = this._input.LA(1);
 	        if(_la===4) {
-	            this.state = 83;
+	            this.state = 89;
 	            this.vars();
 	        }
 
@@ -198,17 +224,17 @@ export default class LittleDuckParserParser extends antlr4.Parser {
 
 	has_funcs() {
 	    let localctx = new Has_funcsContext(this, this._ctx, this.state);
-	    this.enterRule(localctx, 4, LittleDuckParserParser.RULE_has_funcs);
+	    this.enterRule(localctx, 6, LittleDuckParserParser.RULE_has_funcs);
 	    var _la = 0;
 	    try {
 	        this.enterOuterAlt(localctx, 1);
-	        this.state = 89;
+	        this.state = 95;
 	        this._errHandler.sync(this);
 	        _la = this._input.LA(1);
 	        while(_la===27) {
-	            this.state = 86;
+	            this.state = 92;
 	            this.funcs();
-	            this.state = 91;
+	            this.state = 97;
 	            this._errHandler.sync(this);
 	            _la = this._input.LA(1);
 	        }
@@ -230,12 +256,12 @@ export default class LittleDuckParserParser extends antlr4.Parser {
 
 	vars() {
 	    let localctx = new VarsContext(this, this._ctx, this.state);
-	    this.enterRule(localctx, 6, LittleDuckParserParser.RULE_vars);
+	    this.enterRule(localctx, 8, LittleDuckParserParser.RULE_vars);
 	    try {
 	        this.enterOuterAlt(localctx, 1);
-	        this.state = 92;
+	        this.state = 98;
 	        this.match(LittleDuckParserParser.VAR);
-	        this.state = 93;
+	        this.state = 99;
 	        this.var_complement();
 	    } catch (re) {
 	    	if(re instanceof antlr4.error.RecognitionException) {
@@ -255,23 +281,19 @@ export default class LittleDuckParserParser extends antlr4.Parser {
 
 	var_complement() {
 	    let localctx = new Var_complementContext(this, this._ctx, this.state);
-	    this.enterRule(localctx, 8, LittleDuckParserParser.RULE_var_complement);
+	    this.enterRule(localctx, 10, LittleDuckParserParser.RULE_var_complement);
 	    var _la = 0;
 	    try {
 	        this.enterOuterAlt(localctx, 1);
-	        this.state = 100; 
+	        this.state = 104; 
 	        this._errHandler.sync(this);
 	        _la = this._input.LA(1);
 	        do {
-	            this.state = 95;
+	            this.state = 101;
 	            this.id_complement();
-	            this.state = 96;
-	            this.match(LittleDuckParserParser.COLON);
-	            this.state = 97;
-	            this.type();
-	            this.state = 98;
+	            this.state = 102;
 	            this.match(LittleDuckParserParser.SEMICOLON);
-	            this.state = 102; 
+	            this.state = 106; 
 	            this._errHandler.sync(this);
 	            _la = this._input.LA(1);
 	        } while(_la===31);
@@ -293,24 +315,28 @@ export default class LittleDuckParserParser extends antlr4.Parser {
 
 	id_complement() {
 	    let localctx = new Id_complementContext(this, this._ctx, this.state);
-	    this.enterRule(localctx, 10, LittleDuckParserParser.RULE_id_complement);
+	    this.enterRule(localctx, 12, LittleDuckParserParser.RULE_id_complement);
 	    var _la = 0;
 	    try {
 	        this.enterOuterAlt(localctx, 1);
-	        this.state = 104;
+	        this.state = 108;
 	        this.match(LittleDuckParserParser.ID);
-	        this.state = 109;
+	        this.state = 113;
 	        this._errHandler.sync(this);
 	        _la = this._input.LA(1);
 	        while(_la===7) {
-	            this.state = 105;
+	            this.state = 109;
 	            this.match(LittleDuckParserParser.COMMA);
-	            this.state = 106;
+	            this.state = 110;
 	            this.match(LittleDuckParserParser.ID);
-	            this.state = 111;
+	            this.state = 115;
 	            this._errHandler.sync(this);
 	            _la = this._input.LA(1);
 	        }
+	        this.state = 116;
+	        this.match(LittleDuckParserParser.COLON);
+	        this.state = 117;
+	        this.type();
 	    } catch (re) {
 	    	if(re instanceof antlr4.error.RecognitionException) {
 		        localctx.exception = re;
@@ -329,11 +355,11 @@ export default class LittleDuckParserParser extends antlr4.Parser {
 
 	type() {
 	    let localctx = new TypeContext(this, this._ctx, this.state);
-	    this.enterRule(localctx, 12, LittleDuckParserParser.RULE_type);
+	    this.enterRule(localctx, 14, LittleDuckParserParser.RULE_type);
 	    var _la = 0;
 	    try {
 	        this.enterOuterAlt(localctx, 1);
-	        this.state = 112;
+	        this.state = 119;
 	        _la = this._input.LA(1);
 	        if(!(_la===8 || _la===9)) {
 	        this._errHandler.recoverInline(this);
@@ -360,14 +386,14 @@ export default class LittleDuckParserParser extends antlr4.Parser {
 
 	body() {
 	    let localctx = new BodyContext(this, this._ctx, this.state);
-	    this.enterRule(localctx, 14, LittleDuckParserParser.RULE_body);
+	    this.enterRule(localctx, 16, LittleDuckParserParser.RULE_body);
 	    try {
 	        this.enterOuterAlt(localctx, 1);
-	        this.state = 114;
+	        this.state = 121;
 	        this.match(LittleDuckParserParser.CURLY_BRACKET_OPEN);
-	        this.state = 115;
+	        this.state = 122;
 	        this.body_complement();
-	        this.state = 116;
+	        this.state = 123;
 	        this.match(LittleDuckParserParser.CURLY_BRACKET_CLOSE);
 	    } catch (re) {
 	    	if(re instanceof antlr4.error.RecognitionException) {
@@ -387,17 +413,17 @@ export default class LittleDuckParserParser extends antlr4.Parser {
 
 	body_complement() {
 	    let localctx = new Body_complementContext(this, this._ctx, this.state);
-	    this.enterRule(localctx, 16, LittleDuckParserParser.RULE_body_complement);
+	    this.enterRule(localctx, 18, LittleDuckParserParser.RULE_body_complement);
 	    var _la = 0;
 	    try {
 	        this.enterOuterAlt(localctx, 1);
-	        this.state = 121;
+	        this.state = 128;
 	        this._errHandler.sync(this);
 	        _la = this._input.LA(1);
 	        while((((_la) & ~0x1f) === 0 && ((1 << _la) & 2147880960) !== 0)) {
-	            this.state = 118;
+	            this.state = 125;
 	            this.statement();
-	            this.state = 123;
+	            this.state = 130;
 	            this._errHandler.sync(this);
 	            _la = this._input.LA(1);
 	        }
@@ -419,39 +445,39 @@ export default class LittleDuckParserParser extends antlr4.Parser {
 
 	statement() {
 	    let localctx = new StatementContext(this, this._ctx, this.state);
-	    this.enterRule(localctx, 18, LittleDuckParserParser.RULE_statement);
+	    this.enterRule(localctx, 20, LittleDuckParserParser.RULE_statement);
 	    try {
-	        this.state = 129;
+	        this.state = 136;
 	        this._errHandler.sync(this);
 	        var la_ = this._interp.adaptivePredict(this._input,5,this._ctx);
 	        switch(la_) {
 	        case 1:
 	            this.enterOuterAlt(localctx, 1);
-	            this.state = 124;
+	            this.state = 131;
 	            this.assign();
 	            break;
 
 	        case 2:
 	            this.enterOuterAlt(localctx, 2);
-	            this.state = 125;
+	            this.state = 132;
 	            this.condition();
 	            break;
 
 	        case 3:
 	            this.enterOuterAlt(localctx, 3);
-	            this.state = 126;
+	            this.state = 133;
 	            this.cycle();
 	            break;
 
 	        case 4:
 	            this.enterOuterAlt(localctx, 4);
-	            this.state = 127;
+	            this.state = 134;
 	            this.f_call();
 	            break;
 
 	        case 5:
 	            this.enterOuterAlt(localctx, 5);
-	            this.state = 128;
+	            this.state = 135;
 	            this.print();
 	            break;
 
@@ -474,18 +500,18 @@ export default class LittleDuckParserParser extends antlr4.Parser {
 
 	print() {
 	    let localctx = new PrintContext(this, this._ctx, this.state);
-	    this.enterRule(localctx, 20, LittleDuckParserParser.RULE_print);
+	    this.enterRule(localctx, 22, LittleDuckParserParser.RULE_print);
 	    try {
 	        this.enterOuterAlt(localctx, 1);
-	        this.state = 131;
+	        this.state = 138;
 	        this.match(LittleDuckParserParser.PRINT);
-	        this.state = 132;
+	        this.state = 139;
 	        this.match(LittleDuckParserParser.PARENTHESIS_OPEN);
-	        this.state = 133;
+	        this.state = 140;
 	        this.print_complement();
-	        this.state = 134;
+	        this.state = 141;
 	        this.match(LittleDuckParserParser.PARENTHESIS_CLOSE);
-	        this.state = 135;
+	        this.state = 142;
 	        this.match(LittleDuckParserParser.SEMICOLON);
 	    } catch (re) {
 	    	if(re instanceof antlr4.error.RecognitionException) {
@@ -505,9 +531,9 @@ export default class LittleDuckParserParser extends antlr4.Parser {
 
 	print_complement() {
 	    let localctx = new Print_complementContext(this, this._ctx, this.state);
-	    this.enterRule(localctx, 22, LittleDuckParserParser.RULE_print_complement);
+	    this.enterRule(localctx, 24, LittleDuckParserParser.RULE_print_complement);
 	    try {
-	        this.state = 142;
+	        this.state = 149;
 	        this._errHandler.sync(this);
 	        switch(this._input.LA(1)) {
 	        case 13:
@@ -515,16 +541,16 @@ export default class LittleDuckParserParser extends antlr4.Parser {
 	        case 33:
 	        case 34:
 	            this.enterOuterAlt(localctx, 1);
-	            this.state = 137;
+	            this.state = 144;
 	            this.expression();
-	            this.state = 138;
+	            this.state = 145;
 	            this.expression_print_aux();
 	            break;
 	        case 32:
 	            this.enterOuterAlt(localctx, 2);
-	            this.state = 140;
+	            this.state = 147;
 	            this.match(LittleDuckParserParser.CTE_STRING);
-	            this.state = 141;
+	            this.state = 148;
 	            this.expression_print_aux();
 	            break;
 	        default:
@@ -548,20 +574,20 @@ export default class LittleDuckParserParser extends antlr4.Parser {
 
 	expression_print_aux() {
 	    let localctx = new Expression_print_auxContext(this, this._ctx, this.state);
-	    this.enterRule(localctx, 24, LittleDuckParserParser.RULE_expression_print_aux);
+	    this.enterRule(localctx, 26, LittleDuckParserParser.RULE_expression_print_aux);
 	    try {
 	        this.enterOuterAlt(localctx, 1);
-	        this.state = 148;
+	        this.state = 155;
 	        this._errHandler.sync(this);
 	        var _alt = this._interp.adaptivePredict(this._input,7,this._ctx)
 	        while(_alt!=2 && _alt!=antlr4.atn.ATN.INVALID_ALT_NUMBER) {
 	            if(_alt===1) {
-	                this.state = 144;
+	                this.state = 151;
 	                this.match(LittleDuckParserParser.COMMA);
-	                this.state = 145;
+	                this.state = 152;
 	                this.print_complement(); 
 	            }
-	            this.state = 150;
+	            this.state = 157;
 	            this._errHandler.sync(this);
 	            _alt = this._interp.adaptivePredict(this._input,7,this._ctx);
 	        }
@@ -584,16 +610,16 @@ export default class LittleDuckParserParser extends antlr4.Parser {
 
 	assign() {
 	    let localctx = new AssignContext(this, this._ctx, this.state);
-	    this.enterRule(localctx, 26, LittleDuckParserParser.RULE_assign);
+	    this.enterRule(localctx, 28, LittleDuckParserParser.RULE_assign);
 	    try {
 	        this.enterOuterAlt(localctx, 1);
-	        this.state = 151;
+	        this.state = 158;
 	        this.match(LittleDuckParserParser.ID);
-	        this.state = 152;
+	        this.state = 159;
 	        this.match(LittleDuckParserParser.EQUAL);
-	        this.state = 153;
+	        this.state = 160;
 	        this.expression();
-	        this.state = 154;
+	        this.state = 161;
 	        this.match(LittleDuckParserParser.SEMICOLON);
 	    } catch (re) {
 	    	if(re instanceof antlr4.error.RecognitionException) {
@@ -613,22 +639,22 @@ export default class LittleDuckParserParser extends antlr4.Parser {
 
 	cycle() {
 	    let localctx = new CycleContext(this, this._ctx, this.state);
-	    this.enterRule(localctx, 28, LittleDuckParserParser.RULE_cycle);
+	    this.enterRule(localctx, 30, LittleDuckParserParser.RULE_cycle);
 	    try {
 	        this.enterOuterAlt(localctx, 1);
-	        this.state = 156;
+	        this.state = 163;
 	        this.match(LittleDuckParserParser.DO);
-	        this.state = 157;
+	        this.state = 164;
 	        this.body();
-	        this.state = 158;
+	        this.state = 165;
 	        this.match(LittleDuckParserParser.WHILE);
-	        this.state = 159;
+	        this.state = 166;
 	        this.match(LittleDuckParserParser.PARENTHESIS_OPEN);
-	        this.state = 160;
+	        this.state = 167;
 	        this.expression();
-	        this.state = 161;
+	        this.state = 168;
 	        this.match(LittleDuckParserParser.PARENTHESIS_CLOSE);
-	        this.state = 162;
+	        this.state = 169;
 	        this.match(LittleDuckParserParser.SEMICOLON);
 	    } catch (re) {
 	    	if(re instanceof antlr4.error.RecognitionException) {
@@ -648,22 +674,22 @@ export default class LittleDuckParserParser extends antlr4.Parser {
 
 	condition() {
 	    let localctx = new ConditionContext(this, this._ctx, this.state);
-	    this.enterRule(localctx, 30, LittleDuckParserParser.RULE_condition);
+	    this.enterRule(localctx, 32, LittleDuckParserParser.RULE_condition);
 	    try {
 	        this.enterOuterAlt(localctx, 1);
-	        this.state = 164;
+	        this.state = 171;
 	        this.match(LittleDuckParserParser.IF);
-	        this.state = 165;
+	        this.state = 172;
 	        this.match(LittleDuckParserParser.PARENTHESIS_OPEN);
-	        this.state = 166;
+	        this.state = 173;
 	        this.expression();
-	        this.state = 167;
+	        this.state = 174;
 	        this.match(LittleDuckParserParser.PARENTHESIS_CLOSE);
-	        this.state = 168;
+	        this.state = 175;
 	        this.body();
-	        this.state = 169;
+	        this.state = 176;
 	        this.condition_else();
-	        this.state = 170;
+	        this.state = 177;
 	        this.match(LittleDuckParserParser.SEMICOLON);
 	    } catch (re) {
 	    	if(re instanceof antlr4.error.RecognitionException) {
@@ -683,17 +709,17 @@ export default class LittleDuckParserParser extends antlr4.Parser {
 
 	condition_else() {
 	    let localctx = new Condition_elseContext(this, this._ctx, this.state);
-	    this.enterRule(localctx, 32, LittleDuckParserParser.RULE_condition_else);
+	    this.enterRule(localctx, 34, LittleDuckParserParser.RULE_condition_else);
 	    var _la = 0;
 	    try {
 	        this.enterOuterAlt(localctx, 1);
-	        this.state = 174;
+	        this.state = 181;
 	        this._errHandler.sync(this);
 	        _la = this._input.LA(1);
 	        if(_la===19) {
-	            this.state = 172;
+	            this.state = 179;
 	            this.match(LittleDuckParserParser.ELSE);
-	            this.state = 173;
+	            this.state = 180;
 	            this.body();
 	        }
 
@@ -715,11 +741,11 @@ export default class LittleDuckParserParser extends antlr4.Parser {
 
 	cte() {
 	    let localctx = new CteContext(this, this._ctx, this.state);
-	    this.enterRule(localctx, 34, LittleDuckParserParser.RULE_cte);
+	    this.enterRule(localctx, 36, LittleDuckParserParser.RULE_cte);
 	    var _la = 0;
 	    try {
 	        this.enterOuterAlt(localctx, 1);
-	        this.state = 176;
+	        this.state = 183;
 	        _la = this._input.LA(1);
 	        if(!(_la===33 || _la===34)) {
 	        this._errHandler.recoverInline(this);
@@ -746,12 +772,12 @@ export default class LittleDuckParserParser extends antlr4.Parser {
 
 	expression() {
 	    let localctx = new ExpressionContext(this, this._ctx, this.state);
-	    this.enterRule(localctx, 36, LittleDuckParserParser.RULE_expression);
+	    this.enterRule(localctx, 38, LittleDuckParserParser.RULE_expression);
 	    try {
 	        this.enterOuterAlt(localctx, 1);
-	        this.state = 178;
+	        this.state = 185;
 	        this.exp();
-	        this.state = 179;
+	        this.state = 186;
 	        this.expression_aux();
 	    } catch (re) {
 	    	if(re instanceof antlr4.error.RecognitionException) {
@@ -771,17 +797,17 @@ export default class LittleDuckParserParser extends antlr4.Parser {
 
 	expression_aux() {
 	    let localctx = new Expression_auxContext(this, this._ctx, this.state);
-	    this.enterRule(localctx, 38, LittleDuckParserParser.RULE_expression_aux);
+	    this.enterRule(localctx, 40, LittleDuckParserParser.RULE_expression_aux);
 	    var _la = 0;
 	    try {
 	        this.enterOuterAlt(localctx, 1);
-	        this.state = 184;
+	        this.state = 191;
 	        this._errHandler.sync(this);
 	        _la = this._input.LA(1);
 	        if((((_la) & ~0x1f) === 0 && ((1 << _la) & 7340032) !== 0)) {
-	            this.state = 181;
+	            this.state = 188;
 	            this.expression_logics();
-	            this.state = 182;
+	            this.state = 189;
 	            this.exp();
 	        }
 
@@ -803,11 +829,11 @@ export default class LittleDuckParserParser extends antlr4.Parser {
 
 	expression_logics() {
 	    let localctx = new Expression_logicsContext(this, this._ctx, this.state);
-	    this.enterRule(localctx, 40, LittleDuckParserParser.RULE_expression_logics);
+	    this.enterRule(localctx, 42, LittleDuckParserParser.RULE_expression_logics);
 	    var _la = 0;
 	    try {
 	        this.enterOuterAlt(localctx, 1);
-	        this.state = 186;
+	        this.state = 193;
 	        _la = this._input.LA(1);
 	        if(!((((_la) & ~0x1f) === 0 && ((1 << _la) & 7340032) !== 0))) {
 	        this._errHandler.recoverInline(this);
@@ -834,12 +860,12 @@ export default class LittleDuckParserParser extends antlr4.Parser {
 
 	exp() {
 	    let localctx = new ExpContext(this, this._ctx, this.state);
-	    this.enterRule(localctx, 42, LittleDuckParserParser.RULE_exp);
+	    this.enterRule(localctx, 44, LittleDuckParserParser.RULE_exp);
 	    try {
 	        this.enterOuterAlt(localctx, 1);
-	        this.state = 188;
+	        this.state = 195;
 	        this.term();
-	        this.state = 189;
+	        this.state = 196;
 	        this.exp_aux();
 	    } catch (re) {
 	    	if(re instanceof antlr4.error.RecognitionException) {
@@ -859,19 +885,19 @@ export default class LittleDuckParserParser extends antlr4.Parser {
 
 	exp_aux() {
 	    let localctx = new Exp_auxContext(this, this._ctx, this.state);
-	    this.enterRule(localctx, 44, LittleDuckParserParser.RULE_exp_aux);
+	    this.enterRule(localctx, 46, LittleDuckParserParser.RULE_exp_aux);
 	    var _la = 0;
 	    try {
 	        this.enterOuterAlt(localctx, 1);
-	        this.state = 196;
+	        this.state = 203;
 	        this._errHandler.sync(this);
 	        _la = this._input.LA(1);
 	        while(_la===23 || _la===24) {
-	            this.state = 191;
-	            this.exp_operation();
-	            this.state = 192;
-	            this.term();
 	            this.state = 198;
+	            this.exp_operation();
+	            this.state = 199;
+	            this.term();
+	            this.state = 205;
 	            this._errHandler.sync(this);
 	            _la = this._input.LA(1);
 	        }
@@ -893,11 +919,11 @@ export default class LittleDuckParserParser extends antlr4.Parser {
 
 	exp_operation() {
 	    let localctx = new Exp_operationContext(this, this._ctx, this.state);
-	    this.enterRule(localctx, 46, LittleDuckParserParser.RULE_exp_operation);
+	    this.enterRule(localctx, 48, LittleDuckParserParser.RULE_exp_operation);
 	    var _la = 0;
 	    try {
 	        this.enterOuterAlt(localctx, 1);
-	        this.state = 199;
+	        this.state = 206;
 	        _la = this._input.LA(1);
 	        if(!(_la===23 || _la===24)) {
 	        this._errHandler.recoverInline(this);
@@ -924,12 +950,12 @@ export default class LittleDuckParserParser extends antlr4.Parser {
 
 	term() {
 	    let localctx = new TermContext(this, this._ctx, this.state);
-	    this.enterRule(localctx, 48, LittleDuckParserParser.RULE_term);
+	    this.enterRule(localctx, 50, LittleDuckParserParser.RULE_term);
 	    try {
 	        this.enterOuterAlt(localctx, 1);
-	        this.state = 201;
+	        this.state = 208;
 	        this.factor();
-	        this.state = 202;
+	        this.state = 209;
 	        this.term_aux();
 	    } catch (re) {
 	    	if(re instanceof antlr4.error.RecognitionException) {
@@ -949,19 +975,19 @@ export default class LittleDuckParserParser extends antlr4.Parser {
 
 	term_aux() {
 	    let localctx = new Term_auxContext(this, this._ctx, this.state);
-	    this.enterRule(localctx, 50, LittleDuckParserParser.RULE_term_aux);
+	    this.enterRule(localctx, 52, LittleDuckParserParser.RULE_term_aux);
 	    var _la = 0;
 	    try {
 	        this.enterOuterAlt(localctx, 1);
-	        this.state = 209;
+	        this.state = 216;
 	        this._errHandler.sync(this);
 	        _la = this._input.LA(1);
 	        while(_la===25 || _la===26) {
-	            this.state = 204;
-	            this.term_operation();
-	            this.state = 205;
-	            this.factor();
 	            this.state = 211;
+	            this.term_operation();
+	            this.state = 212;
+	            this.factor();
+	            this.state = 218;
 	            this._errHandler.sync(this);
 	            _la = this._input.LA(1);
 	        }
@@ -983,11 +1009,11 @@ export default class LittleDuckParserParser extends antlr4.Parser {
 
 	term_operation() {
 	    let localctx = new Term_operationContext(this, this._ctx, this.state);
-	    this.enterRule(localctx, 52, LittleDuckParserParser.RULE_term_operation);
+	    this.enterRule(localctx, 54, LittleDuckParserParser.RULE_term_operation);
 	    var _la = 0;
 	    try {
 	        this.enterOuterAlt(localctx, 1);
-	        this.state = 212;
+	        this.state = 219;
 	        _la = this._input.LA(1);
 	        if(!(_la===25 || _la===26)) {
 	        this._errHandler.recoverInline(this);
@@ -1014,21 +1040,21 @@ export default class LittleDuckParserParser extends antlr4.Parser {
 
 	factor() {
 	    let localctx = new FactorContext(this, this._ctx, this.state);
-	    this.enterRule(localctx, 54, LittleDuckParserParser.RULE_factor);
+	    this.enterRule(localctx, 56, LittleDuckParserParser.RULE_factor);
 	    try {
-	        this.state = 216;
+	        this.state = 223;
 	        this._errHandler.sync(this);
 	        switch(this._input.LA(1)) {
 	        case 13:
 	            this.enterOuterAlt(localctx, 1);
-	            this.state = 214;
+	            this.state = 221;
 	            this.factor_expression();
 	            break;
 	        case 31:
 	        case 33:
 	        case 34:
 	            this.enterOuterAlt(localctx, 2);
-	            this.state = 215;
+	            this.state = 222;
 	            this.factor_aux();
 	            break;
 	        default:
@@ -1052,14 +1078,14 @@ export default class LittleDuckParserParser extends antlr4.Parser {
 
 	factor_expression() {
 	    let localctx = new Factor_expressionContext(this, this._ctx, this.state);
-	    this.enterRule(localctx, 56, LittleDuckParserParser.RULE_factor_expression);
+	    this.enterRule(localctx, 58, LittleDuckParserParser.RULE_factor_expression);
 	    try {
 	        this.enterOuterAlt(localctx, 1);
-	        this.state = 218;
+	        this.state = 225;
 	        this.match(LittleDuckParserParser.PARENTHESIS_OPEN);
-	        this.state = 219;
+	        this.state = 226;
 	        this.expression();
-	        this.state = 220;
+	        this.state = 227;
 	        this.match(LittleDuckParserParser.PARENTHESIS_CLOSE);
 	    } catch (re) {
 	    	if(re instanceof antlr4.error.RecognitionException) {
@@ -1079,20 +1105,20 @@ export default class LittleDuckParserParser extends antlr4.Parser {
 
 	factor_aux() {
 	    let localctx = new Factor_auxContext(this, this._ctx, this.state);
-	    this.enterRule(localctx, 58, LittleDuckParserParser.RULE_factor_aux);
+	    this.enterRule(localctx, 60, LittleDuckParserParser.RULE_factor_aux);
 	    try {
-	        this.state = 224;
+	        this.state = 231;
 	        this._errHandler.sync(this);
 	        switch(this._input.LA(1)) {
 	        case 31:
 	            this.enterOuterAlt(localctx, 1);
-	            this.state = 222;
+	            this.state = 229;
 	            this.match(LittleDuckParserParser.ID);
 	            break;
 	        case 33:
 	        case 34:
 	            this.enterOuterAlt(localctx, 2);
-	            this.state = 223;
+	            this.state = 230;
 	            this.cte();
 	            break;
 	        default:
@@ -1116,15 +1142,15 @@ export default class LittleDuckParserParser extends antlr4.Parser {
 
 	factor_operations() {
 	    let localctx = new Factor_operationsContext(this, this._ctx, this.state);
-	    this.enterRule(localctx, 60, LittleDuckParserParser.RULE_factor_operations);
+	    this.enterRule(localctx, 62, LittleDuckParserParser.RULE_factor_operations);
 	    var _la = 0;
 	    try {
 	        this.enterOuterAlt(localctx, 1);
-	        this.state = 227;
+	        this.state = 234;
 	        this._errHandler.sync(this);
 	        _la = this._input.LA(1);
 	        if(_la===23 || _la===24) {
-	            this.state = 226;
+	            this.state = 233;
 	            this.factor_operation_plus_minus();
 	        }
 
@@ -1146,11 +1172,11 @@ export default class LittleDuckParserParser extends antlr4.Parser {
 
 	factor_operation_plus_minus() {
 	    let localctx = new Factor_operation_plus_minusContext(this, this._ctx, this.state);
-	    this.enterRule(localctx, 62, LittleDuckParserParser.RULE_factor_operation_plus_minus);
+	    this.enterRule(localctx, 64, LittleDuckParserParser.RULE_factor_operation_plus_minus);
 	    var _la = 0;
 	    try {
 	        this.enterOuterAlt(localctx, 1);
-	        this.state = 229;
+	        this.state = 236;
 	        _la = this._input.LA(1);
 	        if(!(_la===23 || _la===24)) {
 	        this._errHandler.recoverInline(this);
@@ -1177,29 +1203,52 @@ export default class LittleDuckParserParser extends antlr4.Parser {
 
 	funcs() {
 	    let localctx = new FuncsContext(this, this._ctx, this.state);
-	    this.enterRule(localctx, 64, LittleDuckParserParser.RULE_funcs);
+	    this.enterRule(localctx, 66, LittleDuckParserParser.RULE_funcs);
 	    try {
 	        this.enterOuterAlt(localctx, 1);
-	        this.state = 231;
-	        this.match(LittleDuckParserParser.VOID);
-	        this.state = 232;
-	        this.match(LittleDuckParserParser.ID);
-	        this.state = 233;
-	        this.match(LittleDuckParserParser.PARENTHESIS_OPEN);
-	        this.state = 234;
-	        this.funcs_args();
-	        this.state = 235;
-	        this.match(LittleDuckParserParser.PARENTHESIS_CLOSE);
-	        this.state = 236;
-	        this.match(LittleDuckParserParser.SQUARE_BRACKET_OPEN);
-	        this.state = 237;
-	        this.funcs_vars();
 	        this.state = 238;
-	        this.body();
+	        this.match(LittleDuckParserParser.VOID);
 	        this.state = 239;
-	        this.match(LittleDuckParserParser.SQUARE_BRACKET_CLOSE);
+	        this.funcs_id();
 	        this.state = 240;
+	        this.match(LittleDuckParserParser.PARENTHESIS_OPEN);
+	        this.state = 241;
+	        this.funcs_args();
+	        this.state = 242;
+	        this.match(LittleDuckParserParser.PARENTHESIS_CLOSE);
+	        this.state = 243;
+	        this.match(LittleDuckParserParser.SQUARE_BRACKET_OPEN);
+	        this.state = 244;
+	        this.funcs_vars();
+	        this.state = 245;
+	        this.body();
+	        this.state = 246;
+	        this.match(LittleDuckParserParser.SQUARE_BRACKET_CLOSE);
+	        this.state = 247;
 	        this.match(LittleDuckParserParser.SEMICOLON);
+	    } catch (re) {
+	    	if(re instanceof antlr4.error.RecognitionException) {
+		        localctx.exception = re;
+		        this._errHandler.reportError(this, re);
+		        this._errHandler.recover(this, re);
+		    } else {
+		    	throw re;
+		    }
+	    } finally {
+	        this.exitRule();
+	    }
+	    return localctx;
+	}
+
+
+
+	funcs_id() {
+	    let localctx = new Funcs_idContext(this, this._ctx, this.state);
+	    this.enterRule(localctx, 68, LittleDuckParserParser.RULE_funcs_id);
+	    try {
+	        this.enterOuterAlt(localctx, 1);
+	        this.state = 249;
+	        this.match(LittleDuckParserParser.ID);
 	    } catch (re) {
 	    	if(re instanceof antlr4.error.RecognitionException) {
 		        localctx.exception = re;
@@ -1218,15 +1267,15 @@ export default class LittleDuckParserParser extends antlr4.Parser {
 
 	funcs_vars() {
 	    let localctx = new Funcs_varsContext(this, this._ctx, this.state);
-	    this.enterRule(localctx, 66, LittleDuckParserParser.RULE_funcs_vars);
+	    this.enterRule(localctx, 70, LittleDuckParserParser.RULE_funcs_vars);
 	    var _la = 0;
 	    try {
 	        this.enterOuterAlt(localctx, 1);
-	        this.state = 243;
+	        this.state = 252;
 	        this._errHandler.sync(this);
 	        _la = this._input.LA(1);
 	        if(_la===4) {
-	            this.state = 242;
+	            this.state = 251;
 	            this.vars();
 	        }
 
@@ -1248,33 +1297,33 @@ export default class LittleDuckParserParser extends antlr4.Parser {
 
 	funcs_args() {
 	    let localctx = new Funcs_argsContext(this, this._ctx, this.state);
-	    this.enterRule(localctx, 68, LittleDuckParserParser.RULE_funcs_args);
+	    this.enterRule(localctx, 72, LittleDuckParserParser.RULE_funcs_args);
 	    var _la = 0;
 	    try {
 	        this.enterOuterAlt(localctx, 1);
-	        this.state = 257;
+	        this.state = 266;
 	        this._errHandler.sync(this);
 	        _la = this._input.LA(1);
 	        if(_la===31) {
-	            this.state = 245;
-	            this.match(LittleDuckParserParser.ID);
-	            this.state = 246;
-	            this.match(LittleDuckParserParser.COLON);
-	            this.state = 247;
-	            this.type();
 	            this.state = 254;
+	            this.match(LittleDuckParserParser.ID);
+	            this.state = 255;
+	            this.match(LittleDuckParserParser.COLON);
+	            this.state = 256;
+	            this.type();
+	            this.state = 263;
 	            this._errHandler.sync(this);
 	            _la = this._input.LA(1);
 	            while(_la===7) {
-	                this.state = 248;
+	                this.state = 257;
 	                this.match(LittleDuckParserParser.COMMA);
-	                this.state = 249;
+	                this.state = 258;
 	                this.match(LittleDuckParserParser.ID);
-	                this.state = 250;
+	                this.state = 259;
 	                this.match(LittleDuckParserParser.COLON);
-	                this.state = 251;
+	                this.state = 260;
 	                this.type();
-	                this.state = 256;
+	                this.state = 265;
 	                this._errHandler.sync(this);
 	                _la = this._input.LA(1);
 	            }
@@ -1298,18 +1347,18 @@ export default class LittleDuckParserParser extends antlr4.Parser {
 
 	f_call() {
 	    let localctx = new F_callContext(this, this._ctx, this.state);
-	    this.enterRule(localctx, 70, LittleDuckParserParser.RULE_f_call);
+	    this.enterRule(localctx, 74, LittleDuckParserParser.RULE_f_call);
 	    try {
 	        this.enterOuterAlt(localctx, 1);
-	        this.state = 259;
+	        this.state = 268;
 	        this.match(LittleDuckParserParser.ID);
-	        this.state = 260;
+	        this.state = 269;
 	        this.match(LittleDuckParserParser.PARENTHESIS_OPEN);
-	        this.state = 261;
+	        this.state = 270;
 	        this.f_call_expression();
-	        this.state = 262;
+	        this.state = 271;
 	        this.match(LittleDuckParserParser.PARENTHESIS_CLOSE);
-	        this.state = 263;
+	        this.state = 272;
 	        this.match(LittleDuckParserParser.SEMICOLON);
 	    } catch (re) {
 	    	if(re instanceof antlr4.error.RecognitionException) {
@@ -1329,25 +1378,25 @@ export default class LittleDuckParserParser extends antlr4.Parser {
 
 	f_call_expression() {
 	    let localctx = new F_call_expressionContext(this, this._ctx, this.state);
-	    this.enterRule(localctx, 72, LittleDuckParserParser.RULE_f_call_expression);
+	    this.enterRule(localctx, 76, LittleDuckParserParser.RULE_f_call_expression);
 	    var _la = 0;
 	    try {
 	        this.enterOuterAlt(localctx, 1);
-	        this.state = 273;
+	        this.state = 282;
 	        this._errHandler.sync(this);
 	        _la = this._input.LA(1);
 	        if(((((_la - 13)) & ~0x1f) === 0 && ((1 << (_la - 13)) & 3407873) !== 0)) {
-	            this.state = 265;
+	            this.state = 274;
 	            this.expression();
-	            this.state = 270;
+	            this.state = 279;
 	            this._errHandler.sync(this);
 	            _la = this._input.LA(1);
 	            while(_la===7) {
-	                this.state = 266;
+	                this.state = 275;
 	                this.match(LittleDuckParserParser.COMMA);
-	                this.state = 267;
+	                this.state = 276;
 	                this.expression();
-	                this.state = 272;
+	                this.state = 281;
 	                this._errHandler.sync(this);
 	                _la = this._input.LA(1);
 	            }
@@ -1407,42 +1456,44 @@ LittleDuckParserParser.CTE_INT = 33;
 LittleDuckParserParser.CTE_FLOAT = 34;
 
 LittleDuckParserParser.RULE_program = 0;
-LittleDuckParserParser.RULE_has_vars = 1;
-LittleDuckParserParser.RULE_has_funcs = 2;
-LittleDuckParserParser.RULE_vars = 3;
-LittleDuckParserParser.RULE_var_complement = 4;
-LittleDuckParserParser.RULE_id_complement = 5;
-LittleDuckParserParser.RULE_type = 6;
-LittleDuckParserParser.RULE_body = 7;
-LittleDuckParserParser.RULE_body_complement = 8;
-LittleDuckParserParser.RULE_statement = 9;
-LittleDuckParserParser.RULE_print = 10;
-LittleDuckParserParser.RULE_print_complement = 11;
-LittleDuckParserParser.RULE_expression_print_aux = 12;
-LittleDuckParserParser.RULE_assign = 13;
-LittleDuckParserParser.RULE_cycle = 14;
-LittleDuckParserParser.RULE_condition = 15;
-LittleDuckParserParser.RULE_condition_else = 16;
-LittleDuckParserParser.RULE_cte = 17;
-LittleDuckParserParser.RULE_expression = 18;
-LittleDuckParserParser.RULE_expression_aux = 19;
-LittleDuckParserParser.RULE_expression_logics = 20;
-LittleDuckParserParser.RULE_exp = 21;
-LittleDuckParserParser.RULE_exp_aux = 22;
-LittleDuckParserParser.RULE_exp_operation = 23;
-LittleDuckParserParser.RULE_term = 24;
-LittleDuckParserParser.RULE_term_aux = 25;
-LittleDuckParserParser.RULE_term_operation = 26;
-LittleDuckParserParser.RULE_factor = 27;
-LittleDuckParserParser.RULE_factor_expression = 28;
-LittleDuckParserParser.RULE_factor_aux = 29;
-LittleDuckParserParser.RULE_factor_operations = 30;
-LittleDuckParserParser.RULE_factor_operation_plus_minus = 31;
-LittleDuckParserParser.RULE_funcs = 32;
-LittleDuckParserParser.RULE_funcs_vars = 33;
-LittleDuckParserParser.RULE_funcs_args = 34;
-LittleDuckParserParser.RULE_f_call = 35;
-LittleDuckParserParser.RULE_f_call_expression = 36;
+LittleDuckParserParser.RULE_program_id = 1;
+LittleDuckParserParser.RULE_has_vars = 2;
+LittleDuckParserParser.RULE_has_funcs = 3;
+LittleDuckParserParser.RULE_vars = 4;
+LittleDuckParserParser.RULE_var_complement = 5;
+LittleDuckParserParser.RULE_id_complement = 6;
+LittleDuckParserParser.RULE_type = 7;
+LittleDuckParserParser.RULE_body = 8;
+LittleDuckParserParser.RULE_body_complement = 9;
+LittleDuckParserParser.RULE_statement = 10;
+LittleDuckParserParser.RULE_print = 11;
+LittleDuckParserParser.RULE_print_complement = 12;
+LittleDuckParserParser.RULE_expression_print_aux = 13;
+LittleDuckParserParser.RULE_assign = 14;
+LittleDuckParserParser.RULE_cycle = 15;
+LittleDuckParserParser.RULE_condition = 16;
+LittleDuckParserParser.RULE_condition_else = 17;
+LittleDuckParserParser.RULE_cte = 18;
+LittleDuckParserParser.RULE_expression = 19;
+LittleDuckParserParser.RULE_expression_aux = 20;
+LittleDuckParserParser.RULE_expression_logics = 21;
+LittleDuckParserParser.RULE_exp = 22;
+LittleDuckParserParser.RULE_exp_aux = 23;
+LittleDuckParserParser.RULE_exp_operation = 24;
+LittleDuckParserParser.RULE_term = 25;
+LittleDuckParserParser.RULE_term_aux = 26;
+LittleDuckParserParser.RULE_term_operation = 27;
+LittleDuckParserParser.RULE_factor = 28;
+LittleDuckParserParser.RULE_factor_expression = 29;
+LittleDuckParserParser.RULE_factor_aux = 30;
+LittleDuckParserParser.RULE_factor_operations = 31;
+LittleDuckParserParser.RULE_factor_operation_plus_minus = 32;
+LittleDuckParserParser.RULE_funcs = 33;
+LittleDuckParserParser.RULE_funcs_id = 34;
+LittleDuckParserParser.RULE_funcs_vars = 35;
+LittleDuckParserParser.RULE_funcs_args = 36;
+LittleDuckParserParser.RULE_f_call = 37;
+LittleDuckParserParser.RULE_f_call_expression = 38;
 
 class ProgramContext extends antlr4.ParserRuleContext {
 
@@ -1462,8 +1513,8 @@ class ProgramContext extends antlr4.ParserRuleContext {
 	    return this.getToken(LittleDuckParserParser.PROGRAM, 0);
 	};
 
-	ID() {
-	    return this.getToken(LittleDuckParserParser.ID, 0);
+	program_id() {
+	    return this.getTypedRuleContext(Program_idContext,0);
 	};
 
 	SEMICOLON() {
@@ -1499,6 +1550,41 @@ class ProgramContext extends antlr4.ParserRuleContext {
 	exitRule(listener) {
 	    if(listener instanceof LittleDuckParserListener ) {
 	        listener.exitProgram(this);
+		}
+	}
+
+
+}
+
+
+
+class Program_idContext extends antlr4.ParserRuleContext {
+
+    constructor(parser, parent, invokingState) {
+        if(parent===undefined) {
+            parent = null;
+        }
+        if(invokingState===undefined || invokingState===null) {
+            invokingState = -1;
+        }
+        super(parent, invokingState);
+        this.parser = parser;
+        this.ruleIndex = LittleDuckParserParser.RULE_program_id;
+    }
+
+	ID() {
+	    return this.getToken(LittleDuckParserParser.ID, 0);
+	};
+
+	enterRule(listener) {
+	    if(listener instanceof LittleDuckParserListener ) {
+	        listener.enterProgram_id(this);
+		}
+	}
+
+	exitRule(listener) {
+	    if(listener instanceof LittleDuckParserListener ) {
+	        listener.exitProgram_id(this);
 		}
 	}
 
@@ -1648,29 +1734,6 @@ class Var_complementContext extends antlr4.ParserRuleContext {
 	    }
 	};
 
-	COLON = function(i) {
-		if(i===undefined) {
-			i = null;
-		}
-	    if(i===null) {
-	        return this.getTokens(LittleDuckParserParser.COLON);
-	    } else {
-	        return this.getToken(LittleDuckParserParser.COLON, i);
-	    }
-	};
-
-
-	type = function(i) {
-	    if(i===undefined) {
-	        i = null;
-	    }
-	    if(i===null) {
-	        return this.getTypedRuleContexts(TypeContext);
-	    } else {
-	        return this.getTypedRuleContext(TypeContext,i);
-	    }
-	};
-
 	SEMICOLON = function(i) {
 		if(i===undefined) {
 			i = null;
@@ -1725,6 +1788,14 @@ class Id_complementContext extends antlr4.ParserRuleContext {
 	    }
 	};
 
+
+	COLON() {
+	    return this.getToken(LittleDuckParserParser.COLON, 0);
+	};
+
+	type() {
+	    return this.getTypedRuleContext(TypeContext,0);
+	};
 
 	COMMA = function(i) {
 		if(i===undefined) {
@@ -2917,8 +2988,8 @@ class FuncsContext extends antlr4.ParserRuleContext {
 	    return this.getToken(LittleDuckParserParser.VOID, 0);
 	};
 
-	ID() {
-	    return this.getToken(LittleDuckParserParser.ID, 0);
+	funcs_id() {
+	    return this.getTypedRuleContext(Funcs_idContext,0);
 	};
 
 	PARENTHESIS_OPEN() {
@@ -2962,6 +3033,41 @@ class FuncsContext extends antlr4.ParserRuleContext {
 	exitRule(listener) {
 	    if(listener instanceof LittleDuckParserListener ) {
 	        listener.exitFuncs(this);
+		}
+	}
+
+
+}
+
+
+
+class Funcs_idContext extends antlr4.ParserRuleContext {
+
+    constructor(parser, parent, invokingState) {
+        if(parent===undefined) {
+            parent = null;
+        }
+        if(invokingState===undefined || invokingState===null) {
+            invokingState = -1;
+        }
+        super(parent, invokingState);
+        this.parser = parser;
+        this.ruleIndex = LittleDuckParserParser.RULE_funcs_id;
+    }
+
+	ID() {
+	    return this.getToken(LittleDuckParserParser.ID, 0);
+	};
+
+	enterRule(listener) {
+	    if(listener instanceof LittleDuckParserListener ) {
+	        listener.enterFuncs_id(this);
+		}
+	}
+
+	exitRule(listener) {
+	    if(listener instanceof LittleDuckParserListener ) {
+	        listener.exitFuncs_id(this);
 		}
 	}
 
@@ -3190,6 +3296,7 @@ class F_call_expressionContext extends antlr4.ParserRuleContext {
 
 
 LittleDuckParserParser.ProgramContext = ProgramContext; 
+LittleDuckParserParser.Program_idContext = Program_idContext; 
 LittleDuckParserParser.Has_varsContext = Has_varsContext; 
 LittleDuckParserParser.Has_funcsContext = Has_funcsContext; 
 LittleDuckParserParser.VarsContext = VarsContext; 
@@ -3222,6 +3329,7 @@ LittleDuckParserParser.Factor_auxContext = Factor_auxContext;
 LittleDuckParserParser.Factor_operationsContext = Factor_operationsContext; 
 LittleDuckParserParser.Factor_operation_plus_minusContext = Factor_operation_plus_minusContext; 
 LittleDuckParserParser.FuncsContext = FuncsContext; 
+LittleDuckParserParser.Funcs_idContext = Funcs_idContext; 
 LittleDuckParserParser.Funcs_varsContext = Funcs_varsContext; 
 LittleDuckParserParser.Funcs_argsContext = Funcs_argsContext; 
 LittleDuckParserParser.F_callContext = F_callContext; 
