@@ -1,6 +1,6 @@
 # Compiladores. Little Duck - PHMaci
 
-## Entrega #0
+## Entrega $0
 
 <img src="./assets/proyecto.png" alt="Reglas del lenguaje" />
 
@@ -17,7 +17,7 @@
 - ( ) { } [ ] , : ;
 - \+ \- \* / = > < !=
 
-## Entrega #1
+## Entrega $1
 
 La investigación de herramientas resultó sencillo gracias a un repositorio que recogía las principales herramientas para el propósito de la entrega:
 
@@ -55,7 +55,7 @@ Ahora, la forma de correr los tests es con los siguientes pasos:
 
 > npm run go
 
-## Entrega #2
+## Entrega $2
 
 En esta etapa, el primer paso fue decidir qué tipo de estructura se usaría para la parte de la semántica del directorio de funciones y sus tablas de variables, yéndonos por el camino más ágil por _llaves_ como lo son los **diccionarios** y seccionadas en clases.
 Por otro lado, también se tuvo que crear el cubo semántico (el cual **no** haremos uso de él **todavía**) para tener los tipos que arrojaría cuando se haga uso de un operador. Para estos casos, decidí hacer una tabla, donde **I** es igual a _INTEGER_, mientras que **F** es igual a _FLOAT_, siendo los únicos dos tipos de variable con los que cuenta nuestro programa; pudiendo interacturar con distintos operadores y demostrando una salida para cuando X variable de cierto tipo (I o F) se procesan de acuerdo al operador.
@@ -95,3 +95,7 @@ Después, se establecieron los puntos neurálgicos
 7. Se crean los argumentos y se va revisando si ya existen, en caso de que sí, arroja un error de argumento ya declarado.
 
 8. Una vez se hayan creado las variables, estas se guardarán también en el listado de variables de la función que estemos hablando.
+
+## Entrega $2.5
+
+De acuerdo al commit anterior, se decidió cambiar la lógica de la semántica que estaba puesta en los listeners para ponerla directamente en el parser, esto para que vaya más acorde con lo solicitado en la entrega 3. Afortunádamente, los puntos neurálgicos siguen siendo los mismos y la funcionalidad también, siendo un cambio mínimo que al final del día es imperceptible y no afecta para el resultado final.
