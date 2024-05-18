@@ -21,6 +21,24 @@ class dirFunction {
     return true;
   }
 
+  getDirByName(name) {
+    if (this.checkFunction(name)) {
+      const varTable = this.functions[name].varTable.getTable();
+      console.log(`Function: ${name}`);
+      console.log(`Type: ${this.functions[name].type}`);
+      console.log(
+        `Variables: ${
+          Object.keys(varTable).length != 0
+            ? JSON.stringify(varTable)
+            : "Sin variables"
+        }`
+      );
+      return true;
+    } else {
+      throw new Error(`'${name}' not defined.`);
+    }
+  }
+
   addFunction(name, type) {
     if (!this.checkFunction(name)) {
       this.functions[name] = {

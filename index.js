@@ -1,7 +1,6 @@
 import antlr4 from "antlr4";
 import LittleDuckLexer from "./antlr_generated_files/LittleDuckLexer.js";
 import LittleDuckParser from "./antlr_generated_files/LittleDuckParserParser.js";
-import LittleDuckParserListener from "./antlr_generated_files/LittleDuckParserListener.js";
 import { dirFunction } from "./semantic.js";
 import fs from "fs";
 
@@ -16,8 +15,7 @@ const tokens = new antlr4.CommonTokenStream(lexer);
 const parser = new LittleDuckParser(tokens);
 
 const programFunc = new dirFunction();
-const listener = new LittleDuckParserListener(programFunc);
-parser.addParseListener(listener);
+parser.programFunc = programFunc;
 const tree = parser.program();
 
 console.log("ENTREGA $1 - Árbol de análisis sintáctico:\n");

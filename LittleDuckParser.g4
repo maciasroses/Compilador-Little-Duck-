@@ -6,12 +6,28 @@ options {
 
 program:
 	PROGRAM program_id SEMICOLON has_vars has_funcs MAIN body END;
-program_id: ID;
+program_id:
+	ID { 
+		const id = $ID.text;
+		this.funcName = id;
+		this.programFunc.addFunction(id, "program", []);
+	 };
 has_vars: vars?;
 has_funcs: funcs*;
 
 vars: VAR var_complement;
-var_complement: (id_complement SEMICOLON)+;
+var_complement: (
+		id_complement {
+	const id = $id_complement.text;
+
+	const [vars, type] = id.split(":");
+	const ids = vars.split(",");
+
+	ids.forEach(id => {
+		this.programFunc.functions[`${this.funcName}`].varTable.addVar(id,type);
+	});
+	} SEMICOLON
+	)+;
 id_complement: ID (COMMA ID)* COLON type;
 
 type: INT | FLOAT;
@@ -59,9 +75,25 @@ factor_operations: factor_operation_plus_minus?;
 factor_operation_plus_minus: PLUS | MINUS;
 
 funcs:
-	VOID funcs_id PARENTHESIS_OPEN funcs_args PARENTHESIS_CLOSE SQUARE_BRACKET_OPEN funcs_vars body
-		SQUARE_BRACKET_CLOSE SEMICOLON;
-funcs_id: ID;
+	VOID funcs_id PARENTHESIS_OPEN funcs_args {
+		const args = $funcs_args.text;
+
+		if (args !== ""){
+			const varsWithType = args.split(",");
+
+			varsWithType.forEach(uniqueVar => {
+				const [id, type] = uniqueVar.split(":");
+				this.programFunc.functions[`${this.funcName}`].varTable.addVar(id, type);
+			});
+		}
+
+	} PARENTHESIS_CLOSE SQUARE_BRACKET_OPEN funcs_vars body SQUARE_BRACKET_CLOSE SEMICOLON;
+funcs_id:
+	ID {
+	const id = $ID.text;
+	this.funcName = id;
+	this.programFunc.addFunction(id, "void", []);
+};
 funcs_vars: vars?;
 funcs_args: (ID COLON type (COMMA ID COLON type)*)?;
 
