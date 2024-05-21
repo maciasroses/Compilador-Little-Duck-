@@ -1,6 +1,6 @@
 let intCounter = 1000;
-let floatCounter = 2000;
-let constantCounter = 3000;
+let floatCounter = 3000;
+let constantCounter = 15000;
 
 class FunctionDir {
   constructor() {
@@ -74,13 +74,13 @@ class VarTable {
     if (!this.checkVar(name)) {
       let address;
       if (type === "int") {
-        if (intCounter < 2000) {
+        if (intCounter < 3000) {
           address = intCounter++;
         } else {
           throw new Error(`Memory limit reached for type '${type}'`);
         }
       } else if (type === "float") {
-        if (floatCounter < 3000) {
+        if (floatCounter < 5000) {
           address = floatCounter++;
         } else {
           throw new Error(`Memory limit reached for type '${type}'`);
@@ -98,7 +98,7 @@ class VarTable {
 
   addConstant(name, type) {
     let address;
-    if (constantCounter < 6000) {
+    if (constantCounter < 29999) {
       address = constantCounter++;
     } else {
       throw new Error("Memory limit reached for constants");
