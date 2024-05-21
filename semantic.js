@@ -1,4 +1,8 @@
-class dirFunction {
+let intCounter = 1000;
+let floatCounter = 2000;
+let constantCounter = 3000;
+
+class FunctionDir {
   constructor() {
     this.functions = {};
   }
@@ -6,13 +10,13 @@ class dirFunction {
   getDir() {
     for (const funcName in this.functions) {
       if (this.functions.hasOwnProperty(funcName)) {
-        const varTable = this.functions[funcName].varTable.getTable();
+        const VarTable = this.functions[funcName].varTable.getTable();
         console.log(`Function: ${funcName}`);
         console.log(`Type: ${this.functions[funcName].type}`);
         console.log(
           `Variables: ${
-            Object.keys(varTable).length != 0
-              ? JSON.stringify(varTable)
+            Object.keys(VarTable).length != 0
+              ? JSON.stringify(VarTable)
               : "Sin variables"
           }`
         );
@@ -23,13 +27,13 @@ class dirFunction {
 
   getDirByName(name) {
     if (this.checkFunction(name)) {
-      const varTable = this.functions[name].varTable.getTable();
+      const VarTable = this.functions[name].VarTable.getTable();
       console.log(`Function: ${name}`);
       console.log(`Type: ${this.functions[name].type}`);
       console.log(
         `Variables: ${
-          Object.keys(varTable).length != 0
-            ? JSON.stringify(varTable)
+          Object.keys(VarTable).length != 0
+            ? JSON.stringify(VarTable)
             : "Sin variables"
         }`
       );
@@ -44,7 +48,7 @@ class dirFunction {
       this.functions[name] = {
         name: name,
         type: type,
-        varTable: new varTable(),
+        varTable: new VarTable(),
       };
       return true;
     } else {
@@ -57,7 +61,7 @@ class dirFunction {
   }
 }
 
-class varTable {
+class VarTable {
   constructor() {
     this.table = {};
   }
@@ -68,16 +72,78 @@ class varTable {
 
   addVar(name, type) {
     if (!this.checkVar(name)) {
-      this.table[name] = type;
+      let address;
+      if (type === "int") {
+        if (intCounter < 2000) {
+          address = intCounter++;
+        } else {
+          throw new Error(`Memory limit reached for type '${type}'`);
+        }
+      } else if (type === "float") {
+        if (floatCounter < 3000) {
+          address = floatCounter++;
+        } else {
+          throw new Error(`Memory limit reached for type '${type}'`);
+        }
+      } else {
+        throw new Error(`Unknown type '${type}'`);
+      }
+
+      this.table[name] = { name, type, address };
       return true;
     } else {
       throw new Error(`'${name}' already defined.`);
     }
   }
 
+  addConstant(name, type) {
+    let address;
+    if (constantCounter < 6000) {
+      address = constantCounter++;
+    } else {
+      throw new Error("Memory limit reached for constants");
+    }
+    this.table[address] = { name, type, address };
+    return address;
+  }
+
   checkVar(name) {
     return this.table.hasOwnProperty(name);
   }
+
+  getType(name) {
+    if (this.checkVar(name)) {
+      return this.table[name].type;
+    } else {
+      throw new Error(`'${name}' not defined.`);
+    }
+  }
+
+  getAddress(name) {
+    if (this.checkVar(name)) {
+      return this.table[name].address;
+    } else {
+      // throw new Error(`'${name}' not defined.`);
+      const address = this.findFirstMatchByName(name);
+      if (address) {
+        return address.address;
+      } else {
+        throw new Error(`ERROOOOOOOR`);
+      }
+    }
+  }
+
+  findFirstMatchByName(name) {
+    return Object.values(this.table).find((item) => item.name === name);
+  }
+
+  editValByAddress(key, newVal) {
+    if (this.table.hasOwnProperty(key)) {
+      this.table[key].name = newVal;
+    } else {
+      throw new Error("ERROOOR DURING UPDATE");
+    }
+  }
 }
 
-export { dirFunction, varTable };
+export { FunctionDir, VarTable };

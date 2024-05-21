@@ -1,0 +1,11 @@
+program $macias;
+main
+{
+    print($A);
+    print("Hola");
+    print($A + $B);
+    print("Respuesta", $A);
+    print("Me queda ", $A / 100, " porciento");
+    print($A > 100 * ($B + 1), "<- SECRET");
+}
+end

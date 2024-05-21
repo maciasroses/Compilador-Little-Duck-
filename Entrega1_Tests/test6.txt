@@ -1,0 +1,10 @@
+program $macias;
+main
+{
+    $B = $C / $D;
+    do {
+        $A = $B + $C / $D;
+    } while($A < 10);
+    $C = $C * 2;
+}
+end

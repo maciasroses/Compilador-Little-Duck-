@@ -1,0 +1,22 @@
+program $macias;
+var $A, $P, $D: int; $B, $C, $O, $M: float;
+main
+{
+    $A = 2 + -3;
+    $P = 2;
+    $C = 2 > $A;
+    if ($B > 2) {
+        do {
+            $A = $C / $D + ($B * $A);
+        } while ($A + ($C / $B) != $C);
+    } else {
+        $M = $A - $B;
+    };
+    $P = $O;
+    $B = 1.5 + 6.5 / 10 + 1.5;
+    $A = $B + 4.5;
+    $B = $A + $B / $C;
+    print($A);
+    print("asies");
+}
+end

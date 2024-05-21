@@ -99,3 +99,7 @@ Después, se establecieron los puntos neurálgicos
 ## Entrega $2.5
 
 De acuerdo al commit anterior, se decidió cambiar la lógica de la semántica que estaba puesta en los listeners para ponerla directamente en el parser, esto para que vaya más acorde con lo solicitado en la entrega 3. Afortunádamente, los puntos neurálgicos siguen siendo los mismos y la funcionalidad también, siendo un cambio mínimo que al final del día es imperceptible y no afecta para el resultado final.
+
+### Entrega $3
+
+is comming...

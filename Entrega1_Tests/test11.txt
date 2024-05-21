@@ -1,0 +1,7 @@
+program $macias;
+var $A: int;
+main
+{
+    $A = 2 + -3;
+}
+end

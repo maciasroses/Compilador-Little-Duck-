@@ -1,0 +1,13 @@
+program $macias;
+main
+{
+    do {
+        $A = $B + $C;
+        do {
+            $B = $A - $C;
+            $C = $B > $A;
+        } while($B != $C);
+    } while($A < $C);
+    $B = $A + 2;
+}
+end

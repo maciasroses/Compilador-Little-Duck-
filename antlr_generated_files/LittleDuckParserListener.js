@@ -275,15 +275,6 @@ export default class LittleDuckParserListener extends antlr4.tree.ParseTreeListe
 	}
 
 
-	// Enter a parse tree produced by LittleDuckParserParser#factor_aux.
-	enterFactor_aux(ctx) {
-	}
-
-	// Exit a parse tree produced by LittleDuckParserParser#factor_aux.
-	exitFactor_aux(ctx) {
-	}
-
-
 	// Enter a parse tree produced by LittleDuckParserParser#factor_operations.
 	enterFactor_operations(ctx) {
 	}
@@ -299,6 +290,15 @@ export default class LittleDuckParserListener extends antlr4.tree.ParseTreeListe
 
 	// Exit a parse tree produced by LittleDuckParserParser#factor_operation_plus_minus.
 	exitFactor_operation_plus_minus(ctx) {
+	}
+
+
+	// Enter a parse tree produced by LittleDuckParserParser#factor_aux.
+	enterFactor_aux(ctx) {
+	}
+
+	// Exit a parse tree produced by LittleDuckParserParser#factor_aux.
+	exitFactor_aux(ctx) {
 	}
 
 
