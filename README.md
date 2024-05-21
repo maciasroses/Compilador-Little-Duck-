@@ -2,7 +2,7 @@
 
 ## Entrega $0
 
-<img src="./assets/proyecto.png" alt="Reglas del lenguaje" />
+<img src="./assets/proyecto.png" alt="Reglas del lenguaje - DIAGRAMA DEL PROYECTO" />
 
 #### Expresiones Regulares
 
@@ -74,13 +74,13 @@ En la siguiente tabla se muestran todas las combinaciones posibles para los oper
 
 Después, se establecieron los puntos neurálgicos
 
-<img src="./assets/program.jpeg" alt="Reglas del lenguaje" />
+<img src="./assets/program.jpeg" alt="Reglas del lenguaje - PROGRAM" />
 
 1. En este punto se crear el directorio de funciones para guardar el nombre del programa, significando que no se puede crear una función después con el mismo nombre.
 
 2. Para este punto, una vez se hayan creado las variables, estas serán globales y se guardarán para la función "programa".
 
-<img src="./assets/vars.jpeg" alt="Reglas del lenguaje" />
+<img src="./assets/vars.jpeg" alt="Reglas del lenguaje - VARS" />
 
 3. Se inicializa la tabla de variables para la función que se esté trabajando en ese momento.
 
@@ -88,7 +88,7 @@ Después, se establecieron los puntos neurálgicos
 
 5. Se asocia el tipo a toda la lista de variables del contexto que estemos hablando.
 
-<img src="./assets/funcs.jpeg" alt="Reglas del lenguaje" />
+<img src="./assets/funcs.jpeg" alt="Reglas del lenguaje - FUNCS" />
 
 6. Se crear la función y se agrega al diccionario de funciones, revisando también si ya existe, en caso de que sí, arrojaría un error de función ya declarada como pasa con la lista de variables.
 
@@ -100,6 +100,65 @@ Después, se establecieron los puntos neurálgicos
 
 De acuerdo al commit anterior, se decidió cambiar la lógica de la semántica que estaba puesta en los listeners para ponerla directamente en el parser, esto para que vaya más acorde con lo solicitado en la entrega 3. Afortunádamente, los puntos neurálgicos siguen siendo los mismos y la funcionalidad también, siendo un cambio mínimo que al final del día es imperceptible y no afecta para el resultado final.
 
-### Entrega $3
+## Entrega $3
 
-is comming...
+Durante esta entrega se desarrollaron las soluciones programáticas para la generación de los cuádruplos tanto para expresiones aritméticas y relacionales, como para los estatus lineas y no lineales, implicando el establecido de los puntos neurálgicos en el resto de los diagramas.
+
+A continuación, se explican los puntos representados en el diagrama:
+
+<img src="./assets/print.jpeg" alt="Reglas del lenguaje - PRINT" />
+
+9. Se saca el operando del momento y se crear el cuádruplo de tipo PRINT.
+
+10. Se agrega la constante a la tabla de variables (esto con el objetivo de usar su tipo) y se crea el cuádruplo.
+
+<img src="./assets/cycle.jpeg" alt="Reglas del lenguaje - CYCLE" />
+
+11. Se obtiene el indice actual de cuádruplos y se mete a la pila de saltos.
+
+12. Se obtiene el último operando y el último salto para agregarlo al cuádruplo de tipo GOTOT.
+
+<img src="./assets/condition.jpeg" alt="Reglas del lenguaje - CONDITION" />
+
+13. Se crea una nueva etiqueta para actualizarla después una vez obtengamos su GOTO. Además, se obtiene el útimo operando y se crea el cuádruplo de tipo GOTOF que dependa del primero mencionado y se pone la etiqueta. Por último, la etiqeueta se agrega a la pila de saltos.
+
+14. Se obtiene el último salto y el índice actual de cuádruplos, llamando a la función de editar cuádruplo de acuerdo a una etiqueta y se actualiza su resultado de una etiqueta a dicho salto.
+
+15. Se crea una nueva etiqueta para actualizar después una vez obtengamos su GOTOF, creando además un cuádruplo de tipo GOTO donde se obtiene el último salto y el índice actual, actualizando el cuádruplo de acuerdo al salto obtenido y se pone el índice que le corresponde.
+
+<img src="./assets/assign.jpeg" alt="Reglas del lenguaje - PRINT" />
+
+16. Se comprueba si la variable existe, si no, arroja un error.
+
+17. Se obtiene el valor procesado en EXPRESSION y el último valor de la pila de operandos pero sin borrarlo, generando así el cuádruplo de tipo asociativo.
+
+<img src="./assets/expression.jpeg" alt="Reglas del lenguaje - EXPRESSION" />
+<img src="./assets/exp.jpeg" alt="Reglas del lenguaje - EXP" />
+<img src="./assets/term.jpeg" alt="Reglas del lenguaje - TERM" />
+
+18. Se guarda el operador obtenido en la pila de operadores si este fue ingresado. (pasa lo mismo para los diagramas de EXP y TERM para los puntos 20 y 22)
+
+19. Se crea un temporal, al mismo tiempo de obtener el último operador y los 2 operandos de sus respectivas pilas, generando así su cuádruplo, guardándolo al final en la pila de operandos. (pasa lo mismo para los diagramas de EXP y TERM para los puntos 21 y 23)
+
+<img src="./assets/factor.jpeg" alt="Reglas del lenguaje - FACTOR" />
+
+24. Se comprueba si se ingresó un + o un - para editar el operando y apendizarlo al ID (en caso de hablar de un ID, se comprueba su existencia también) o a la constante de su contexto.
+
+25. Se comprueba si la variable existe, en caso de que no, se arroja un error.
+
+26. El valor procesado se guarda en la pila de operandos.
+
+<img src="./assets/cte.jpeg" alt="Reglas del lenguaje - CTE" />
+
+27. Se agrega la constante a la tabla de variables con el tipo INT.
+
+28. Se agrega la constante a la tabla de variables con el tipo FLOAT.
+
+Por otro lado, se creó la tabla de rangos de memoria en cuanto a los tipos de variables y su entorno (local, global temporal y constante), siendo ésta la siguiente:
+
+| Variable  | MEMORY RANGE   | INT RANGE      | FLOAT RANGE    | STRING RANGE   |
+| --------- | -------------- | -------------- | -------------- | -------------- |
+| Global    | [1000, 4999]   | [1000, 2999]   | [3000, 4999]   | -              |
+| Temporal  | [5000, 9999]   | [5000, 7499]   | [7500, 9999]   | -              |
+| Local     | [10000, 14999] | [10000, 12499] | [12500, 14999] | -              |
+| Constante | [15000, 29999] | [15000, 19999] | [20000, 24999] | [25000, 29999] |

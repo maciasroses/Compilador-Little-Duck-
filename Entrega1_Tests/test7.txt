@@ -1,4 +1,5 @@
 program $macias;
+var $A, $B: int; $C: float;
 main
 {
     do {

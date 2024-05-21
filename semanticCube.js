@@ -1,82 +1,82 @@
 export default semanticCube = {
   "+": {
-    i: {
-      i: "i",
-      f: "f",
+    int: {
+      int: "int",
+      float: "float",
     },
-    f: {
-      i: "f",
-      f: "f",
+    float: {
+      int: "float",
+      float: "float",
     },
   },
   "-": {
-    i: {
-      i: "i",
-      f: "f",
+    int: {
+      int: "int",
+      float: "float",
     },
-    f: {
-      i: "f",
-      f: "f",
+    float: {
+      int: "float",
+      float: "float",
     },
   },
   "*": {
-    i: {
-      i: "i",
-      f: "f",
+    int: {
+      int: "int",
+      float: "float",
     },
-    f: {
-      i: "f",
-      f: "f",
+    float: {
+      int: "float",
+      float: "float",
     },
   },
   "/": {
-    i: {
-      i: "i",
-      f: "f",
+    int: {
+      int: "int",
+      float: "float",
     },
-    f: {
-      i: "f",
-      f: "f",
+    float: {
+      int: "float",
+      float: "float",
     },
   },
   ">": {
-    i: {
-      i: "i",
-      f: "i",
+    int: {
+      int: "int",
+      float: "int",
     },
-    f: {
-      i: "i",
-      f: "i",
+    float: {
+      int: "int",
+      float: "int",
     },
   },
   "<": {
-    i: {
-      i: "i",
-      f: "i",
+    int: {
+      int: "int",
+      float: "int",
     },
-    f: {
-      i: "i",
-      f: "i",
+    float: {
+      int: "int",
+      float: "int",
     },
   },
   "!=": {
-    i: {
-      i: "i",
-      f: "i",
+    int: {
+      int: "int",
+      float: "int",
     },
-    f: {
-      i: "i",
-      f: "i",
+    float: {
+      int: "int",
+      float: "int",
     },
   },
   "=": {
-    i: {
-      i: "i",
-      f: "i",
+    int: {
+      int: "int",
+      float: "int",
     },
-    f: {
-      i: "f",
-      f: "f",
+    float: {
+      int: "float",
+      float: "float",
     },
   },
 };

@@ -1,5 +1,5 @@
 program $macias;
-var $A: int;
+var $A: float;
 main
 {
     $A = 2 + -3;

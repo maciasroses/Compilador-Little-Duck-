@@ -1,5 +1,5 @@
 program $macias;
-var $M, $var2: int;
+var $A, $B: float; $C, $D: int;
 main
 {
     if($A + $B > $D){

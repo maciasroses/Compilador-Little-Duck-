@@ -1,4 +1,5 @@
 program $macias;
+var $A, $B: int; $C, $D: float;
 main
 {
     $B = $C / $D;
