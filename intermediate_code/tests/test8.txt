@@ -1,0 +1,21 @@
+program $macias;
+
+var $x,$c: int;
+
+main{
+
+    $x = 0;
+    $c = 7.9;
+
+    do{
+        if($x < 5){
+            print($x, " menor a 5");
+        }else{
+            print($x, " mayor o igual a 5");
+        };
+        $x = $x + 1;
+    }
+    while($x < 10);
+
+}
+end;

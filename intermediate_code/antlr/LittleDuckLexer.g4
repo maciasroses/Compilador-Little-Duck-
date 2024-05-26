@@ -30,13 +30,11 @@ VOID: 'void';
 SQUARE_BRACKET_OPEN: '[';
 SQUARE_BRACKET_CLOSE: ']';
 
-WS:
-	[ \t\r\n]+ -> skip;
-	// Esta regla ayuda a que se omitan los espacios en blanco, tabulaciones y saltos de linea
+WS: [ \t\r\n]+ -> skip;
+// Esta regla ayuda a que se omitan los espacios en blanco, tabulaciones y saltos de linea
 
-ID:
-	'$' [a-zA-Z0-9]+;
-	// Los identificadores siempre empiezan con un signo de $ y despues pueden tener letras y numeros
+ID: '$' [a-zA-Z0-9]+;
+// Los identificadores siempre empiezan con un signo de $ y despues pueden tener letras y numeros
 CTE_STRING:
 	'"' (.)*? '"'; // Las cadenas de texto pueden ser vacias
 CTE_INT: [0-9]+;

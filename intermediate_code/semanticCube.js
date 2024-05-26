@@ -1,5 +1,6 @@
-export default semanticCube = {
+const semanticCube = {
   "+": {
+    code: 0,
     int: {
       int: "int",
       float: "float",
@@ -10,6 +11,7 @@ export default semanticCube = {
     },
   },
   "-": {
+    code: 1,
     int: {
       int: "int",
       float: "float",
@@ -20,6 +22,7 @@ export default semanticCube = {
     },
   },
   "*": {
+    code: 2,
     int: {
       int: "int",
       float: "float",
@@ -30,6 +33,7 @@ export default semanticCube = {
     },
   },
   "/": {
+    code: 3,
     int: {
       int: "int",
       float: "float",
@@ -40,6 +44,7 @@ export default semanticCube = {
     },
   },
   ">": {
+    code: 4,
     int: {
       int: "int",
       float: "int",
@@ -50,6 +55,7 @@ export default semanticCube = {
     },
   },
   "<": {
+    code: 5,
     int: {
       int: "int",
       float: "int",
@@ -60,6 +66,7 @@ export default semanticCube = {
     },
   },
   "!=": {
+    code: 6,
     int: {
       int: "int",
       float: "int",
@@ -70,6 +77,7 @@ export default semanticCube = {
     },
   },
   "=": {
+    code: 7,
     int: {
       int: "int",
       float: "int",
@@ -80,3 +88,5 @@ export default semanticCube = {
     },
   },
 };
+
+export default semanticCube;

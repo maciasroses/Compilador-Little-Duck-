@@ -1,0 +1,14 @@
+program $macias;
+var $var1: int;
+
+main
+{
+    $var1 = 1;
+    print(2);
+    print(2);
+    print("hola", 3, "asies", $var1 + 3, "no lo sé, más vale prevenir");
+    print("hola");
+    $var1 = 2 + 2 + 2 + 2;
+    print($var1);
+}
+end;

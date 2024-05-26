@@ -1,0 +1,20 @@
+program $macias;
+var $A, $B: float; $C, $D: int;
+main
+{
+    $C = 5;
+    $B = $C + 2.9;
+    $A = 2;
+    print("Hola", $A);
+    if ($B > 2) {
+        do {
+            $D = 2 / -3 * ($C - -2);
+            $A = $C / $D + ($B * $A);
+            $C = $A;
+        } while ($A > $C);
+    } else {
+        $A = $A - $B;
+    };
+    print($C);
+}
+end;

@@ -1,0 +1,15 @@
+program $macias;
+var $A, $B: int;
+main
+{
+    $A = 10;
+    $B = 2;
+    if($A > $B){
+        print($A, " es mayor que ", " apoco si", "tilin", "$B", "$A", "$C");
+    };
+    $A = 10 + 2;
+    print("aqui ya es otra linea \n");
+    print("esto ya tambien es otra linea", "sigue siendo", "la", "misma", "linea, y esto es el valor de $A: ", $A,  "\nesto ya no es la misma linea, pero esta en el mismo print.\n");
+    print("Evaluar print en una misma linea para cuando hay un calculo de por medio: ", 5, " el calculo anterior debe estar en la misma linea.");
+}
+end;

@@ -1,0 +1,21 @@
+program $macias;
+var $A: float; $B: int;
+main
+{
+    $B = 1;
+    $A = 0;
+    do{
+        $A = $A + $B;
+        if($A > 8){
+            print($A, " es más grande que 8");
+            print(" ...continua");
+        } else {
+            print($A, " es más peque que 8");
+            print(" ...continua");
+        };
+    } while($A < 10);
+    $A = 4 / 2.0;
+    print($A, "\n");
+    print("termine");
+}
+end;

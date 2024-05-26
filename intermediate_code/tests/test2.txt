@@ -1,0 +1,8 @@
+program $macias;
+var $var1: int; $var2: float; $var3: float; $var4: int;
+main
+{
+    $var1 = 2;
+    print($var1);
+}
+end;

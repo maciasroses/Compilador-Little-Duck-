@@ -5,7 +5,11 @@ options {
 }
 
 program:
-	PROGRAM program_id SEMICOLON has_vars has_funcs MAIN body END;
+	PROGRAM program_id SEMICOLON has_vars has_funcs MAIN body END {
+		this.quadruple.addEndQuadruple();
+		const constantTable = this.programFunc.functions[`${this.funcName}`].constantTable.getTable();
+		this.quadruple.generateDocument(this.funcName, constantTable);
+	} SEMICOLON;
 program_id:
 	ID { 
 		const id = $ID.text;
@@ -42,12 +46,15 @@ print:
 print_complement:
 	expression {
 		const oper = this.quadruple.popOperating()
-		const address = this.programFunc.functions[`${this.funcName}`].varTable.getAddress(oper);
+		let address = this.programFunc.functions[`${this.funcName}`].varTable.getAddress(oper);
+		if(!address){
+			address = this.programFunc.functions[`${this.funcName}`].constantTable.getAddress(oper);
+		}
 		this.quadruple.addPrintQuadruple(address)
 	} expression_print_aux
 	| CTE_STRING {
-		const val = this.programFunc.functions[`${this.funcName}`].varTable.addConstant($CTE_STRING.text, "string");
-		this.quadruple.addPrintQuadruple(val);
+		const val = this.programFunc.functions[`${this.funcName}`].constantTable.addStringConstant($CTE_STRING.text);
+		this.quadruple.addPrintQuadruple(val)
 	} expression_print_aux;
 expression_print_aux: ( COMMA print_complement)*;
 
@@ -60,19 +67,22 @@ assign:
 		const assign = $ID.text;
 		const address = this.programFunc.functions[`${this.funcName}`].varTable.getAddress(assign);
 		const op = this.quadruple.peekOperating();
-		const opAddress = this.programFunc.functions[`${this.funcName}`].varTable.getAddress(op);
-		this.quadruple.addAssignQuadruple("=", opAddress, address);
+		let opAddress = this.programFunc.functions[`${this.funcName}`].varTable.getAddress(op);
+		if(!opAddress){
+			opAddress = this.programFunc.functions[`${this.funcName}`].constantTable.getAddress(op);
+		}
+		this.quadruple.addAssignQuadruple(7, opAddress, address);
 } SEMICOLON;
 
 cycle:
 	DO {
 		const cycleIndex = this.quadruple.getCurrentCount();
 		this.quadruple.pushJump(cycleIndex);
-	} body WHILE PARENTHESIS_OPEN expression PARENTHESIS_CLOSE SEMICOLON {
+	} body WHILE PARENTHESIS_OPEN expression PARENTHESIS_CLOSE {
 		const op = this.quadruple.popOperating();
 		const doJump = this.quadruple.popJump();
 		this.quadruple.addCycleJump(op, doJump);
-	};
+	} SEMICOLON;
 
 condition:
 	IF PARENTHESIS_OPEN expression PARENTHESIS_CLOSE {
@@ -99,10 +109,10 @@ condition_else: (
 
 cte:
 	CTE_INT {
-		this.programFunc.functions[`${this.funcName}`].varTable.addConstant($CTE_INT.text, "int");
+		this.quadruple.pushType("int");
 	}
 	| CTE_FLOAT {
-		this.programFunc.functions[`${this.funcName}`].varTable.addConstant($CTE_FLOAT.text, "float");
+		this.quadruple.pushType("float");
 	};
 
 expression: exp expression_aux;
@@ -110,16 +120,32 @@ expression_aux: (
 		expression_logics {
 		this.quadruple.pushOperator($expression_logics.text);
 } exp {
-		const temp = this.quadruple.newTemp();
 		const operator = this.quadruple.popOperator();
+		const operatorCode = this.semanticCube[operator]["code"]
+
 		const op2 = this.quadruple.popOperating();
-		const op2Address = this.programFunc.functions[`${this.funcName}`].varTable.getAddress(op2);
+		const op2Type = this.quadruple.popType();
+		let op2Address = this.programFunc.functions[`${this.funcName}`].varTable.getAddress(op2);
+		if(!op2Address){
+			op2Address = this.programFunc.functions[`${this.funcName}`].constantTable.getAddress(op2);
+		}
+
 		const op1 = this.quadruple.popOperating();
-		const op1Address = this.programFunc.functions[`${this.funcName}`].varTable.getAddress(op1);
-		// AQUI VA LA CHAMBA DEL CUBO SEMANTICO, PARA ASI LOGRAR ASIGNAR TIPO AL TEMPORAL
-		const tempAddress = this.programFunc.functions[`${this.funcName}`].varTable.addConstant(temp, "temp");
-		this.quadruple.addQuadruple(operator, op1Address, op2Address, tempAddress);
+		const op1Type = this.quadruple.popType();
+		let op1Address = this.programFunc.functions[`${this.funcName}`].varTable.getAddress(op1);
+		if(!op1Address){
+			op1Address = this.programFunc.functions[`${this.funcName}`].constantTable.getAddress(op1);
+		}
+
+		const temp = this.quadruple.newTemp();
+		const tempType = this.semanticCube[operator][op1Type][op2Type];
+		const tempAddress = this.programFunc.functions[`${this.funcName}`].varTable.addTemp(temp, tempType);
+		this.programFunc.functions[`${this.funcName}`].varTable.updateKey(temp, tempAddress);
 		this.quadruple.pushOperating(tempAddress);
+		this.quadruple.pushType(tempType);
+
+		this.quadruple.addQuadruple(operatorCode, op1Address, op2Address, tempAddress);
+		
 	}
 	)?;
 expression_logics: GREATHER_THAN | LESS_THAN | NOT_EQUAL;
@@ -129,16 +155,32 @@ exp_aux: (
 		exp_operation {
 		this.quadruple.pushOperator($exp_operation.text);
 } term {
-		const temp = this.quadruple.newTemp();
 		const operator = this.quadruple.popOperator();
+		const operatorCode = this.semanticCube[operator]["code"]
+
 		const op2 = this.quadruple.popOperating();
-		const op2Address = this.programFunc.functions[`${this.funcName}`].varTable.getAddress(op2);
+		const op2Type = this.quadruple.popType();
+		let op2Address = this.programFunc.functions[`${this.funcName}`].varTable.getAddress(op2);
+		if(!op2Address){
+			op2Address = this.programFunc.functions[`${this.funcName}`].constantTable.getAddress(op2);
+		}
+
 		const op1 = this.quadruple.popOperating();
-		const op1Address = this.programFunc.functions[`${this.funcName}`].varTable.getAddress(op1);
-		// AQUI VA LA CHAMBA DEL CUBO SEMANTICO, PARA ASI LOGRAR ASIGNAR TIPO AL TEMPORAL
-		const tempAddress = this.programFunc.functions[`${this.funcName}`].varTable.addConstant(temp, "temp");
-		this.quadruple.addQuadruple(operator, op1Address, op2Address, tempAddress);
+		const op1Type = this.quadruple.popType();
+		let op1Address = this.programFunc.functions[`${this.funcName}`].varTable.getAddress(op1);
+		if(!op1Address){
+			op1Address = this.programFunc.functions[`${this.funcName}`].constantTable.getAddress(op1);
+		}
+
+		const temp = this.quadruple.newTemp();
+		const tempType = this.semanticCube[operator][op1Type][op2Type];
+		const tempAddress = this.programFunc.functions[`${this.funcName}`].varTable.addTemp(temp, tempType);
+		this.programFunc.functions[`${this.funcName}`].varTable.updateKey(temp, tempAddress);
 		this.quadruple.pushOperating(tempAddress);
+		this.quadruple.pushType(tempType);
+
+		this.quadruple.addQuadruple(operatorCode, op1Address, op2Address, tempAddress);
+		
 	}
 	)*;
 exp_operation: PLUS | MINUS;
@@ -148,16 +190,31 @@ term_aux: (
 		term_operation {
 		this.quadruple.pushOperator($term_operation.text);
 } factor {
-		const temp = this.quadruple.newTemp();
 		const operator = this.quadruple.popOperator();
+		const operatorCode = this.semanticCube[operator]["code"]
+
 		const op2 = this.quadruple.popOperating();
-		const op2Address = this.programFunc.functions[`${this.funcName}`].varTable.getAddress(op2);
+		const op2Type = this.quadruple.popType();
+		let op2Address = this.programFunc.functions[`${this.funcName}`].varTable.getAddress(op2);
+		if(!op2Address){
+			op2Address = this.programFunc.functions[`${this.funcName}`].constantTable.getAddress(op2);
+		}
+
 		const op1 = this.quadruple.popOperating();
-		const op1Address = this.programFunc.functions[`${this.funcName}`].varTable.getAddress(op1);
-		// AQUI VA LA CHAMBA DEL CUBO SEMANTICO, PARA ASI LOGRAR ASIGNAR TIPO AL TEMPORAL
-		const tempAddress = this.programFunc.functions[`${this.funcName}`].varTable.addConstant(temp, "temp");
-		this.quadruple.addQuadruple(operator, op1Address, op2Address, tempAddress);
+		const op1Type = this.quadruple.popType();
+		let op1Address = this.programFunc.functions[`${this.funcName}`].varTable.getAddress(op1);
+		if(!op1Address){
+			op1Address = this.programFunc.functions[`${this.funcName}`].constantTable.getAddress(op1);
+		}
+		
+		const temp = this.quadruple.newTemp();
+		const tempType = this.semanticCube[operator][op1Type][op2Type]
+		const tempAddress = this.programFunc.functions[`${this.funcName}`].varTable.addTemp(temp, tempType);
+		this.programFunc.functions[`${this.funcName}`].varTable.updateKey(temp, tempAddress);
 		this.quadruple.pushOperating(tempAddress);
+		this.quadruple.pushType(tempType);
+
+		this.quadruple.addQuadruple(operatorCode, op1Address, op2Address, tempAddress);
 	}
 	)*;
 term_operation: ASTERISK | SLASH;
@@ -166,6 +223,11 @@ factor:
 	factor_expression
 	| factor_operations {
 	this.quadruple.pushOperating($factor_operations.text);
+	let opType = this.programFunc.functions[`${this.funcName}`].varTable.getType($factor_operations.text)
+	if(!opType){
+		opType = this.programFunc.functions[`${this.funcName}`].constantTable.getType($factor_operations.text)
+	}
+	this.quadruple.pushType(opType);
 };
 factor_expression:
 	PARENTHESIS_OPEN expression PARENTHESIS_CLOSE;
@@ -173,12 +235,17 @@ factor_operations:
 	factor_operation_plus_minus? factor_aux {
 	const auxFaxPM = $factor_operation_plus_minus.text;
 	const val = $factor_aux.text;
-	const key = this.programFunc.functions[`${this.funcName}`].varTable.getAddress(val)
-	if(auxFaxPM){
-		if(auxFaxPM == "+"){
-			this.programFunc.functions[`${this.funcName}`].varTable.editValByAddress(key, `+${val}`)
+
+	if(!val.startsWith("$")){
+		const auxFaxValType = this.quadruple.popType();
+		if(auxFaxPM){
+			if (auxFaxPM == "+"){
+				this.programFunc.functions[`${this.funcName}`].constantTable.addConstant(`+${val}`, auxFaxValType);
+			} else {
+				this.programFunc.functions[`${this.funcName}`].constantTable.addConstant(`-${val}`, auxFaxValType);
+			}
 		} else {
-			this.programFunc.functions[`${this.funcName}`].varTable.editValByAddress(key, `-${val}`)
+			this.programFunc.functions[`${this.funcName}`].constantTable.addConstant(val, auxFaxValType);
 		}
 	}
 };

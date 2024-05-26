@@ -1,0 +1,12 @@
+program $macias;
+var $N, $R: int;
+main {
+    $N = 5;
+    $R = 1;
+    do {
+        $R = $R * $N;
+        $N = $N - 1;
+    } while ($N != 0);
+    print($R);
+}
+end;

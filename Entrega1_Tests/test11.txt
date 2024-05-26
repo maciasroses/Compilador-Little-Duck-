@@ -1,7 +1,0 @@
-program $macias;
-var $A: float;
-main
-{
-    $A = 2 + -3;
-}
-end

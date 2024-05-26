@@ -1,10 +1,11 @@
 program $macias;
-var $A, $P, $D: int; $B, $C, $O, $M: float;
+var $A, $D: int; $B, $C, $O, $M: float;
 main
 {
     $A = 2 + -3;
-    $P = 2;
-    $C = 2 > $A;
+    $B = $A;
+    $C = 9.2;
+    $D = 3;
     if ($B > 2) {
         do {
             $A = $C / $D + ($B * $A);
@@ -12,11 +13,10 @@ main
     } else {
         $M = $A - $B;
     };
-    $P = $O;
     $B = 1.5 + 6.5 / 10 + 1.5;
     $A = $B + 4.5;
     $B = $A + $B / $C;
-    print($A);
-    print("asies");
+    print($A, "\n");
+    print("asies\n", "esta es otra linea \n", "tambien esta", "\ny esta tambien :p");
 }
-end
+end;

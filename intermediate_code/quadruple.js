@@ -1,3 +1,6 @@
+import fs from "fs";
+import path from "path";
+
 class Quadruple {
   constructor(op, arg1, arg2, res) {
     this.op = op;
@@ -8,6 +11,10 @@ class Quadruple {
 
   toString() {
     return `\t${this.op}\t|\t${this.arg1}\t|\t${this.arg2}\t|\t${this.res}`;
+  }
+
+  toStringWithoutFormat() {
+    return `${this.op},${this.arg1},${this.arg2},${this.res}`;
   }
 }
 
@@ -36,6 +43,10 @@ class QuadrupleTable {
     const quadruple = new Quadruple(op, arg1, arg2, res);
     this.quadruple.push(quadruple);
     this.globalCount++;
+  }
+
+  addEndQuadruple() {
+    this.addQuadruple(12, "", "", "");
   }
 
   addAssignQuadruple(op, arg1, res) {
@@ -80,12 +91,6 @@ class QuadrupleTable {
     return this.typePile[this.typePile.length - 1];
   }
 
-  // BORRAR
-  getTypePile() {
-    return this.typePile;
-  }
-  // BORRAR
-
   getCurrentCount() {
     return this.globalCount;
   }
@@ -103,19 +108,19 @@ class QuadrupleTable {
   }
 
   addByPassJump(label) {
-    this.addQuadruple("GOTO", "", "", label);
+    this.addQuadruple(11, "", "", label);
   }
 
   addConditionalJump(condition, label) {
-    this.addQuadruple("GOTOF", condition, "", label);
+    this.addQuadruple(9, condition, "", label);
   }
 
   addCycleJump(condition, label) {
-    this.addQuadruple("GOTOT", condition, "", label);
+    this.addQuadruple(10, condition, "", label);
   }
 
   addPrintQuadruple(arg) {
-    this.addQuadruple("PRINT", "", "", arg);
+    this.addQuadruple(8, "", "", arg);
   }
 
   getQuadrupleByIndex(index) {
@@ -142,6 +147,50 @@ class QuadrupleTable {
       console.log(
         "\t---------------------------------------------------------------------------------"
       );
+    });
+  }
+
+  // generateDocument() {
+  //   const quadrupleDoc = this.quadruple
+  //     .map((quad) => quad.toStringWithoutFormat())
+  //     .join("\n");
+  //   fs.writeFile("example.ovejita", quadrupleDoc, "utf8", (err) => {
+  //     if (err) {
+  //       console.error("Error writing the file:", err);
+  //     } else {
+  //       console.log("File has been saved as", "example.ovejita\n");
+  //     }
+  //   });
+  // }
+
+  generateDocument(fileName, obj) {
+    const quadrupleDoc = this.quadruple
+      .map((quad) => quad.toStringWithoutFormat())
+      .join("\n");
+
+    const objEntries = Object.values(obj)
+      .map(({ name, address }) => `${address},${name}`)
+      .join("\n");
+
+    const finalDoc = `${quadrupleDoc}\n$\n${objEntries}`;
+
+    const folderPath = "./virtual_machine/tests";
+    if (!fs.existsSync(folderPath)) {
+      fs.mkdirSync(folderPath, { recursive: true });
+    }
+
+    const filePath = path.join(folderPath, `${fileName}.ovejota`);
+
+    fs.writeFile(filePath, finalDoc, "utf8", (err) => {
+      if (err) {
+        console.error("Error writing the file:", err);
+      } else {
+        console.log(
+          "File has been saved as",
+          `${fileName}.ovejota`,
+          "at virtual_machine/tests\n"
+        );
+      }
     });
   }
 }
