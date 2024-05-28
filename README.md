@@ -224,25 +224,23 @@ Para correr el intérprete, como lo dice al final de correr el CÓDIGO INTERMEDI
 
 El funcionamiento de la máquina virtual es sencillo, de acuerdo a la siguiente estructura de los archivos ovejotas generados por el compilador:
 
-> DIROPER,DIRARG1,DIRARG2,DIRRES
-> ...
-> $
-> DIRECCION,VALOR
-> ...
+> DIROPER,DIRARG1,DIRARG2,DIRRES <br/>
+> ... <br/>
+> $ <br/>
+> DIRECCION,VALOR <br/>
+> ... <br/>
 
 El archivo se divide en 2 secciones: la primera antes del signo de $ se encuentran todos los cuádruplos en base a dirección de memoria, concluyendo con el cuádruplo del final de archivo; la segunda después del signo de \$ es la tabla de constantes, tambén en base a dirección de memoria en la primera columna y su valor en la segunda columna.
 
 La máquina virtual separa las 2 secciones, guardando los cuádruplos y las constantes con la siguiente estructura:
 
-> Cuádruplos: [
-> [ 'DIROPER', 'DIRARG1', 'DIRARG2', 'DIRRES' ],
-> ...
-> ]
->
-> Constantes: {
-> 'DIRECCION': VALOR,
-> ...
-> }
+> Cuádruplos: [ <br/> > [ 'DIROPER', 'DIRARG1', 'DIRARG2', 'DIRRES' ], <br/>
+> ... <br/>
+> ] <br/> > <br/>
+> Constantes: { <br/>
+> 'DIRECCION': VALOR, <br/>
+> ... <br/>
+> } <br/>
 
 Después se inicializa la memoria de acuerdo al rango ya mencionado en la Entrega 3, haciendo 3 arreglos, memoria global, memoria temporal y memoria local, llenándose poco a poco de acuerdo al programa en su lugar asignado en base a la base que le corresponda según su dirección de memoria, donde, la base 1000 es para las variables globales, la base 5000 es para las temporales, y la base 10,000 es para las locales.
 
@@ -256,11 +254,11 @@ Esto ya es extra, pero se decidió implementar el reto del compilado y ejecució
 
 Por otro lado, esto impactó también en cómo se genera el archivo compilado listo para interpretar, quedando de la siguiente manera:
 
-> ...
-> DIRECCION,VALOR
-> $
-> FUNCNAME,TIPO,CUADRUPLOINICIOFUNC
-> ...
+> ... <br/>
+> DIRECCION,VALOR <br/>
+> $ <br/>
+> FUNCNAME,TIPO,CUADRUPLOINICIOFUNC <br/>
+> ... <br/>
 
 Por lo que, también hubo cambios en la máquina virtual y sus secciones, agregando una tercera para guardar las funciones de la siguiente manera:
 
