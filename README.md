@@ -21,7 +21,7 @@
 
 La investigación de herramientas resultó sencillo gracias a un repositorio que recogía las principales herramientas para el propósito de la entrega:
 
-> https://gist.github.com/dimitrio-m/cf6cde052787ed97164fe6422a5e4cb0
+    https://gist.github.com/dimitrio-m/cf6cde052787ed97164fe6422a5e4cb0
 
 Dado que mi propósito en un principio era hacerlo con PHP, el hecho de que no estuviera en la lista me hizo cambiar de opinión a otro lenguaje que me gusta mucho, el cual es Javascript, y, aunque ANTLR no era la primera como sí lo era Nearley, su documentación me resultó más complicada de entender, encontrando además con la segunda la opción de PHP en su documentación y ejemplos claros de su uso; Por esto último, cuando exploré la documentación del proceso en PHP se me hizo más fácil hacerlo en Javascript por el hecho del package.json y la instalación de dependencias como la evidentemente necesaria ANTLR4, sin dejar de lado la inspiración de PHP al seguir un poco su sintaxis.
 
@@ -34,24 +34,25 @@ Los archivos necesarios para compilar los archivos LittleDuckParser y LittleDuck
 
 _Asegúrese de estar en la carpeta antes mencionada antes de correr los siguientes comandos._
 
-> antlr4 -Dlanguage=JavaScript LittleDuckLexer.g4
-> antlr4 -Dlanguage=JavaScript LittleDuckParser.g4
+    antlr4 -Dlanguage=JavaScript LittleDuckLexer.g4
+
+    antlr4 -Dlanguage=JavaScript LittleDuckParser.g4
 
 _Si tiene problemas al ejecutar los comandos, probablemente se debe a que no tiene instalado antlr4, por lo que lo puede descargar de la siguiente forma:_
 
-> sudo curl -O https://www.antlr.org/download/antlr-4.13.1-complete.jar
+    sudo curl -O https://www.antlr.org/download/antlr-4.13.1-complete.jar
 
 _Considera tener la última versión de Java, la cual puede descargar en la siguiente liga:_
 
-> https://www.oracle.com/java/technologies/downloads/
+    https://www.oracle.com/java/technologies/downloads/
 
 ---
 
 Ahora, la forma de correr compilar los tests es de la siguiente forma:
 
-> npm install
+    npm install
 
-> npm run compile
+    npm run compile
 
 _En esta entrega solo se muestra en consola el árbol de análisis sintáctico._
 
@@ -219,29 +220,29 @@ Así mismo, en lugar de correr el compilado e interpretado con un archivo fijo, 
 
 Para correr el intérprete, como lo dice al final de correr el CÓDIGO INTERMEDIO, hay que correr el siguiente comando:
 
-> npm run interpret
+    npm run interpret
 
 El funcionamiento de la máquina virtual es sencillo, de acuerdo a la siguiente estructura de los archivos ovejotas generados por el compilador:
 
-    DIROPER,DIRARG1,DIRARG2,DIRRES
-    ...
-    $
-    DIRECCION,VALOR
-    ...
+> DIROPER,DIRARG1,DIRARG2,DIRRES
+> ...
+> $
+> DIRECCION,VALOR
+> ...
 
 El archivo se divide en 2 secciones: la primera antes del signo de $ se encuentran todos los cuádruplos en base a dirección de memoria, concluyendo con el cuádruplo del final de archivo; la segunda después del signo de \$ es la tabla de constantes, tambén en base a dirección de memoria en la primera columna y su valor en la segunda columna.
 
 La máquina virtual separa las 2 secciones, guardando los cuádruplos y las constantes con la siguiente estructura:
 
-    Cuádruplos: [
-        [ 'DIROPER', 'DIRARG1', 'DIRARG2', 'DIRRES' ],
-        ...
-    ]
-
-    Constantes: {
-        'DIRECCION': VALOR,
-        ...
-    }
+> Cuádruplos: [
+> [ 'DIROPER', 'DIRARG1', 'DIRARG2', 'DIRRES' ],
+> ...
+> ]
+>
+> Constantes: {
+> 'DIRECCION': VALOR,
+> ...
+> }
 
 Después se inicializa la memoria de acuerdo al rango ya mencionado en la Entrega 3, haciendo 3 arreglos, memoria global, memoria temporal y memoria local, llenándose poco a poco de acuerdo al programa en su lugar asignado en base a la base que le corresponda según su dirección de memoria, donde, la base 1000 es para las variables globales, la base 5000 es para las temporales, y la base 10,000 es para las locales.
 
@@ -255,19 +256,19 @@ Esto ya es extra, pero se decidió implementar el reto del compilado y ejecució
 
 Por otro lado, esto impactó también en cómo se genera el archivo compilado listo para interpretar, quedando de la siguiente manera:
 
-    ...
-    DIRECCION,VALOR
-    $
-    FUNCNAME,TIPO,CUADRUPLOINICIOFUNC
-    ...
+> ...
+> DIRECCION,VALOR
+> $
+> FUNCNAME,TIPO,CUADRUPLOINICIOFUNC
+> ...
 
 Por lo que, también hubo cambios en la máquina virtual y sus secciones, agregando una tercera para guardar las funciones de la siguiente manera:
 
-    ...
-    Funciones: {
-        'FUNCNAME': { FUNCTYPE, CUADRUPLOINICIOFUNC },
-        ...
-    }
+> ...
+> Funciones: {
+> 'FUNCNAME': { FUNCTYPE, CUADRUPLOINICIOFUNC },
+> ...
+> }
 
 Ahora, los cambios dentro del intérprete para la ejecución de las funciones fueron los siguientes:
 
