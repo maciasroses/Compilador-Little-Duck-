@@ -1,0 +1,40 @@
+program $macias;
+var $var1: int; $var2: float;
+
+void $func1($arg1: float, $arg2: float)[
+    var $newvar: float;
+    {
+        print($arg2);
+        $newvar = 4 + $arg1;
+        print("Respuesta: ", $newvar, "\n");
+        print("otra respuesta");
+    }
+];
+
+void $func2($arg1func2: float, $arg2func2: int)[
+    var $newvar: int; $floatvar: float;
+    {
+        $floatvar = 10.0;
+        print("Nueva funcion");
+        $newvar = 10 / $arg1func2 - $arg2func2;
+        print($newvar);
+        $func1(10.0, $newvar / 1.0);
+        print("final");
+        $func1($newvar * 5.1, $floatvar);
+        print("ahora si final");
+        $func1(10.0,2 * $floatvar);
+        print("ya ahora si, jaja");
+
+    }
+];
+
+main
+{
+    $var1 = 1;
+    print("hola");
+    $func1($var1 * 2.0, 2.1);
+    print("Funcion terminada");
+    $func2(3.5, 3);
+    print("Fin del programa");
+}
+end;

@@ -5,10 +5,23 @@ options {
 }
 
 program:
-	PROGRAM program_id SEMICOLON has_vars has_funcs MAIN body END {
+	PROGRAM program_id SEMICOLON has_vars {
+		const mainLabel = this.quadruple.newLabel();
+		this.quadruple.addGotoMainQuadruple(mainLabel)
+		this.quadruple.pushJump(mainLabel)
+	} has_funcs {
+		const pendingMainJump = this.quadruple.popJump();
+		const currentCount = this.quadruple.getCurrentCount();
+		this.quadruple.editQuadrupleByLabel(pendingMainJump, currentCount);
+	} MAIN { 
+		const id = $program_id.text;
+		const mainFunction = this.programFunc.getNameDir(id);
+		this.funcName = mainFunction.name;
+	 } body END {
 		this.quadruple.addEndQuadruple();
-		const constantTable = this.programFunc.functions[`${this.funcName}`].constantTable.getTable();
-		this.quadruple.generateDocument(this.funcName, constantTable);
+		const constantTable = this.constantTable.getTable();
+		const functionDir = this.programFunc.getVoidFunctionsForDocument();
+		this.quadruple.generateDocument(this.funcName, constantTable, functionDir);
 	} SEMICOLON;
 program_id:
 	ID { 
@@ -22,14 +35,17 @@ has_funcs: funcs*;
 vars: VAR var_complement;
 var_complement: (
 		id_complement {
-	const id = $id_complement.text;
+			const currentFunctionName = this.funcName
+			const currentFunction = this.programFunc.getNameDir(currentFunctionName);
 
-	const [vars, type] = id.split(":");
-	const ids = vars.split(",");
+			const id = $id_complement.text;
 
-	ids.forEach(id => {
-		this.programFunc.functions[`${this.funcName}`].varTable.addVar(id,type);
-	});
+			const [vars, type] = id.split(":");
+			const ids = vars.split(",");
+
+			ids.forEach(id => {
+				this.programFunc.functions[`${this.funcName}`].varTable.addVar(id,type,currentFunction.type);
+			});
 	} SEMICOLON
 	)+;
 id_complement: ID (COMMA ID)* COLON type;
@@ -48,12 +64,12 @@ print_complement:
 		const oper = this.quadruple.popOperating()
 		let address = this.programFunc.functions[`${this.funcName}`].varTable.getAddress(oper);
 		if(!address){
-			address = this.programFunc.functions[`${this.funcName}`].constantTable.getAddress(oper);
+			address = this.constantTable.getAddress(oper);
 		}
 		this.quadruple.addPrintQuadruple(address)
 	} expression_print_aux
 	| CTE_STRING {
-		const val = this.programFunc.functions[`${this.funcName}`].constantTable.addStringConstant($CTE_STRING.text);
+		const val = this.constantTable.addStringConstant($CTE_STRING.text);
 		this.quadruple.addPrintQuadruple(val)
 	} expression_print_aux;
 expression_print_aux: ( COMMA print_complement)*;
@@ -69,7 +85,7 @@ assign:
 		const op = this.quadruple.peekOperating();
 		let opAddress = this.programFunc.functions[`${this.funcName}`].varTable.getAddress(op);
 		if(!opAddress){
-			opAddress = this.programFunc.functions[`${this.funcName}`].constantTable.getAddress(op);
+			opAddress = this.constantTable.getAddress(op);
 		}
 		this.quadruple.addAssignQuadruple(7, opAddress, address);
 } SEMICOLON;
@@ -127,14 +143,14 @@ expression_aux: (
 		const op2Type = this.quadruple.popType();
 		let op2Address = this.programFunc.functions[`${this.funcName}`].varTable.getAddress(op2);
 		if(!op2Address){
-			op2Address = this.programFunc.functions[`${this.funcName}`].constantTable.getAddress(op2);
+			op2Address = this.constantTable.getAddress(op2);
 		}
 
 		const op1 = this.quadruple.popOperating();
 		const op1Type = this.quadruple.popType();
 		let op1Address = this.programFunc.functions[`${this.funcName}`].varTable.getAddress(op1);
 		if(!op1Address){
-			op1Address = this.programFunc.functions[`${this.funcName}`].constantTable.getAddress(op1);
+			op1Address = this.constantTable.getAddress(op1);
 		}
 
 		const temp = this.quadruple.newTemp();
@@ -162,14 +178,14 @@ exp_aux: (
 		const op2Type = this.quadruple.popType();
 		let op2Address = this.programFunc.functions[`${this.funcName}`].varTable.getAddress(op2);
 		if(!op2Address){
-			op2Address = this.programFunc.functions[`${this.funcName}`].constantTable.getAddress(op2);
+			op2Address = this.constantTable.getAddress(op2);
 		}
 
 		const op1 = this.quadruple.popOperating();
 		const op1Type = this.quadruple.popType();
 		let op1Address = this.programFunc.functions[`${this.funcName}`].varTable.getAddress(op1);
 		if(!op1Address){
-			op1Address = this.programFunc.functions[`${this.funcName}`].constantTable.getAddress(op1);
+			op1Address = this.constantTable.getAddress(op1);
 		}
 
 		const temp = this.quadruple.newTemp();
@@ -197,14 +213,14 @@ term_aux: (
 		const op2Type = this.quadruple.popType();
 		let op2Address = this.programFunc.functions[`${this.funcName}`].varTable.getAddress(op2);
 		if(!op2Address){
-			op2Address = this.programFunc.functions[`${this.funcName}`].constantTable.getAddress(op2);
+			op2Address = this.constantTable.getAddress(op2);
 		}
 
 		const op1 = this.quadruple.popOperating();
 		const op1Type = this.quadruple.popType();
 		let op1Address = this.programFunc.functions[`${this.funcName}`].varTable.getAddress(op1);
 		if(!op1Address){
-			op1Address = this.programFunc.functions[`${this.funcName}`].constantTable.getAddress(op1);
+			op1Address = this.constantTable.getAddress(op1);
 		}
 		
 		const temp = this.quadruple.newTemp();
@@ -225,7 +241,7 @@ factor:
 	this.quadruple.pushOperating($factor_operations.text);
 	let opType = this.programFunc.functions[`${this.funcName}`].varTable.getType($factor_operations.text)
 	if(!opType){
-		opType = this.programFunc.functions[`${this.funcName}`].constantTable.getType($factor_operations.text)
+		opType = this.constantTable.getType($factor_operations.text)
 	}
 	this.quadruple.pushType(opType);
 };
@@ -240,12 +256,12 @@ factor_operations:
 		const auxFaxValType = this.quadruple.popType();
 		if(auxFaxPM){
 			if (auxFaxPM == "+"){
-				this.programFunc.functions[`${this.funcName}`].constantTable.addConstant(`+${val}`, auxFaxValType);
+				this.constantTable.addConstant(`+${val}`, auxFaxValType);
 			} else {
-				this.programFunc.functions[`${this.funcName}`].constantTable.addConstant(`-${val}`, auxFaxValType);
+				this.constantTable.addConstant(`-${val}`, auxFaxValType);
 			}
 		} else {
-			this.programFunc.functions[`${this.funcName}`].constantTable.addConstant(val, auxFaxValType);
+			this.constantTable.addConstant(val, auxFaxValType);
 		}
 	}
 };
@@ -260,6 +276,10 @@ factor_aux:
 
 funcs:
 	VOID funcs_id PARENTHESIS_OPEN funcs_args {
+
+		const currentFunctionName = $funcs_id.text;
+		const currentFunction = this.programFunc.getNameDir(currentFunctionName);
+
 		const args = $funcs_args.text;
 
 		if (args !== ""){
@@ -267,11 +287,17 @@ funcs:
 
 			varsWithType.forEach(uniqueVar => {
 				const [id, type] = uniqueVar.split(":");
-				this.programFunc.functions[`${this.funcName}`].varTable.addVar(id, type);
+				this.programFunc.functions[`${this.funcName}`].varTable.addVar(id, type, currentFunction.type);
+				this.programFunc.functions[`${this.funcName}`].parameterTable.addParameter(id, type);
 			});
 		}
 
-	} PARENTHESIS_CLOSE SQUARE_BRACKET_OPEN funcs_vars body SQUARE_BRACKET_CLOSE SEMICOLON;
+	} PARENTHESIS_CLOSE SQUARE_BRACKET_OPEN funcs_vars {
+		const quadIndex = this.quadruple.getCurrentCount()
+		this.programFunc.addStartQuadruple(currentFunctionName, quadIndex)
+	} body SQUARE_BRACKET_CLOSE SEMICOLON {
+		this.quadruple.addEndFunctionQuadruple()
+	};
 funcs_id:
 	ID {
 	const id = $ID.text;
@@ -282,5 +308,62 @@ funcs_vars: vars?;
 funcs_args: (ID COLON type (COMMA ID COLON type)*)?;
 
 f_call:
-	ID PARENTHESIS_OPEN f_call_expression PARENTHESIS_CLOSE SEMICOLON;
-f_call_expression: (expression (COMMA expression)*)?;
+	ID {
+		const id = $ID.text;
+
+		if(!this.programFunc.checkFunction(id)){
+			throw new Error(`Function ${id} not declared`);
+		}
+
+		this.functionName = this.programFunc.getNameDir(id)
+		this.paramTable = this.programFunc.functions[id].parameterTable.getTable()
+		this.valuesParamTable = Object.values(this.paramTable);
+		this.paramCount = 0;
+		this.quadruple.addEraQuadruple(id);
+	} PARENTHESIS_OPEN f_call_expression PARENTHESIS_CLOSE {
+		if(this.paramCount !== this.valuesParamTable.length){
+			throw new Error(`Function ${this.functionName.name} has received too few arguments`)
+		}
+		this.quadruple.addGoSubQuadruple(id);
+	} SEMICOLON;
+f_call_expression: (
+		expression {
+			const arg = this.quadruple.popOperating();
+			const argType = this.quadruple.popType();
+			let argAddress = this.programFunc.functions[`${this.funcName}`].varTable.getAddress(arg);
+			if(!argAddress){
+				argAddress = this.constantTable.getAddress(arg);
+			}
+
+			try {
+				if(this.valuesParamTable[this.paramCount].type !== argType){
+					throw new Error(`Type mismatch in parameter ${this.paramCount + 1} in function ${this.functionName.name}. Expected {this.valuesParamTable[this.paramCount].type} but got ${argType}`)
+				}
+			} catch (error) {
+				throw new Error(`Function ${this.functionName.name} has received too many arguments or ${error.message}`)
+			}
+
+			const newParam = `param${this.paramCount++}`
+			this.quadruple.addParamQuadruple(argAddress, newParam)
+		} (
+			COMMA expression {
+				const arg = this.quadruple.popOperating();
+				const argType = this.quadruple.popType();
+				let argAddress = this.programFunc.functions[`${this.funcName}`].varTable.getAddress(arg);
+				if(!argAddress){
+					argAddress = this.constantTable.getAddress(arg);
+				}
+
+				try {
+					if(this.valuesParamTable[this.paramCount].type !== argType){
+						throw new Error(`Type mismatch in parameter ${this.paramCount + 1} in function ${this.functionName.name}. Expected ${this.valuesParamTable[this.paramCount].type} but got ${argType}`)
+					}
+				} catch (error) {
+					throw new Error(`Function ${this.functionName.name} has received too many arguments or ${error.message}`)
+				}
+
+				const newParam = `param${this.paramCount++}`
+				this.quadruple.addParamQuadruple(argAddress, newParam)
+			}
+		)*
+	)?;

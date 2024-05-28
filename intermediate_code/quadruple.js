@@ -110,6 +110,28 @@ class QuadrupleTable {
   addByPassJump(label) {
     this.addQuadruple(11, "", "", label);
   }
+  // ^
+  // PODRIA SER EL MISMO DE ARRIBA
+  // ...
+  addGotoMainQuadruple(label) {
+    this.addQuadruple(11, "", "", label);
+  }
+
+  addEndFunctionQuadruple() {
+    this.addQuadruple(13, "", "", "");
+  }
+
+  addEraQuadruple(functionName) {
+    this.addQuadruple(14, "", "", functionName);
+  }
+
+  addParamQuadruple(param, paramNumber) {
+    this.addQuadruple(15, param, "", paramNumber);
+  }
+
+  addGoSubQuadruple(functionName) {
+    this.addQuadruple(16, "", "", functionName);
+  }
 
   addConditionalJump(condition, label) {
     this.addQuadruple(9, condition, "", label);
@@ -150,20 +172,7 @@ class QuadrupleTable {
     });
   }
 
-  // generateDocument() {
-  //   const quadrupleDoc = this.quadruple
-  //     .map((quad) => quad.toStringWithoutFormat())
-  //     .join("\n");
-  //   fs.writeFile("example.ovejita", quadrupleDoc, "utf8", (err) => {
-  //     if (err) {
-  //       console.error("Error writing the file:", err);
-  //     } else {
-  //       console.log("File has been saved as", "example.ovejita\n");
-  //     }
-  //   });
-  // }
-
-  generateDocument(fileName, obj) {
+  generateDocument(fileName, obj, functionDir) {
     const quadrupleDoc = this.quadruple
       .map((quad) => quad.toStringWithoutFormat())
       .join("\n");
@@ -172,7 +181,13 @@ class QuadrupleTable {
       .map(({ name, address }) => `${address},${name}`)
       .join("\n");
 
-    const finalDoc = `${quadrupleDoc}\n$\n${objEntries}`;
+    const functionEntries = Object.values(functionDir)
+      .map(({ name, type, startQuad }) => {
+        return `${name},${type},${startQuad}`;
+      })
+      .join("\n");
+
+    const finalDoc = `${quadrupleDoc}\n$\n${objEntries}\n$\n${functionEntries}`;
 
     const folderPath = "./virtual_machine/tests";
     if (!fs.existsSync(folderPath)) {

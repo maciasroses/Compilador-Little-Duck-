@@ -13,24 +13,16 @@ class FunctionDir {
     this.functions = {};
   }
 
-  // getDirConstants() {
-  //   let constants = {};
-  //   for (const funcName in this.functions) {
-  //     if (this.functions.hasOwnProperty(funcName)) {
-  //       const ConstantTable = this.functions[funcName].constantTable.getTable();
-  //       if (Object.keys(ConstantTable).length != 0) {
-  //         constants[funcName] = ConstantTable;
-  //       }
-  //     }
-  //   }
-  //   return constants;
-  // }
+  getAll() {
+    return this.functions;
+  }
 
   getDir() {
     for (const funcName in this.functions) {
       if (this.functions.hasOwnProperty(funcName)) {
         const VarTable = this.functions[funcName].varTable.getTable();
-        const ConstantTable = this.functions[funcName].constantTable.getTable();
+        const ParameterTable =
+          this.functions[funcName].parameterTable.getTable();
         console.log(`Function: ${funcName}`);
         console.log(`Type: ${this.functions[funcName].type}`);
         console.log(
@@ -41,10 +33,10 @@ class FunctionDir {
           }`
         );
         console.log(
-          `Constants: ${
-            Object.keys(ConstantTable).length != 0
-              ? JSON.stringify(ConstantTable)
-              : "Sin constantes"
+          `Parámetros: ${
+            Object.keys(ParameterTable).length != 0
+              ? JSON.stringify(ParameterTable)
+              : "Sin parámetros"
           }`
         );
       }
@@ -52,10 +44,35 @@ class FunctionDir {
     return true;
   }
 
+  getVoidFunctionsForDocument() {
+    const result = {};
+
+    for (const funcName in this.functions) {
+      if (this.functions.hasOwnProperty(funcName)) {
+        const func = this.functions[funcName];
+        if (func.type === "void") {
+          result[funcName] = {
+            ...func,
+            varTable: {
+              table: func.varTable.getTable(),
+              numberOfLocalVars: func.varTable.getLocalVariables(),
+            },
+            parameterTable: {
+              table: func.parameterTable.getTable(),
+              numberOfParams: func.parameterTable.getNumbOfParameters(),
+            },
+          };
+        }
+      }
+    }
+
+    return result;
+  }
+
   getDirByName(name) {
     if (this.checkFunction(name)) {
       const VarTable = this.functions[name].VarTable.getTable();
-      const ConstantTable = this.functions[name].ConstantTable.getTable();
+      const ParameterTable = this.functions[funcName].parameterTable.getTable();
       console.log(`Function: ${name}`);
       console.log(`Type: ${this.functions[name].type}`);
       console.log(
@@ -66,10 +83,10 @@ class FunctionDir {
         }`
       );
       console.log(
-        `Constantes: ${
-          Object.keys(ConstantTable).length != 0
-            ? JSON.stringify(ConstantTable)
-            : "Sin variables"
+        `Parámetros: ${
+          Object.keys(ParameterTable).length != 0
+            ? JSON.stringify(ParameterTable)
+            : "Sin parámetros"
         }`
       );
       return true;
@@ -78,17 +95,30 @@ class FunctionDir {
     }
   }
 
+  addStartQuadruple(name, quadIndex) {
+    const currentFunc = this.getNameDir(name);
+    currentFunc.startQuad = quadIndex;
+  }
+
   addFunction(name, type) {
     if (!this.checkFunction(name)) {
       this.functions[name] = {
         name: name,
         type: type,
         varTable: new VarTable(),
-        constantTable: new ConstantTable(),
+        parameterTable: new ParameterTabla(),
       };
       return true;
     } else {
       throw new Error(`'${name}' already defined.`);
+    }
+  }
+
+  getNameDir(name) {
+    if (this.checkFunction(name)) {
+      return this.functions[name];
+    } else {
+      throw new Error(`'${name}' not defined.`);
     }
   }
 
@@ -97,29 +127,135 @@ class FunctionDir {
   }
 }
 
-class VarTable {
+class ParameterTabla {
   constructor() {
     this.table = {};
+    this.localIntCounter = 10000;
+    this.localFloatCounter = 12500;
   }
 
   getTable() {
     return this.table;
   }
 
-  addVar(name, type) {
-    if (!this.checkVar(name)) {
+  getNumbOfParameters() {
+    return Object.keys(this.table).length;
+  }
+
+  addParameter(name, type) {
+    if (!this.checkParameter(name)) {
       let address;
       if (type === "int") {
-        if (globalIntCounter < 3000) {
-          address = globalIntCounter++;
+        if (this.localIntCounter < 12500) {
+          address = this.localIntCounter++;
         } else {
           throw new Error(`Memory limit reached for type '${type}'`);
         }
       } else if (type === "float") {
-        if (globalFloatCounter < 5000) {
-          address = globalFloatCounter++;
+        if (this.localFloatCounter < 15000) {
+          address = this.localFloatCounter++;
         } else {
           throw new Error(`Memory limit reached for type '${type}'`);
+        }
+      } else {
+        throw new Error(`Unknown type '${type}'`);
+      }
+      this.table[name] = { name, type, address };
+      return address;
+    } else {
+      throw new Error(`'${name}' already defined.`);
+    }
+  }
+
+  checkParameter(name) {
+    return this.table.hasOwnProperty(name);
+  }
+
+  editType(name, newType) {
+    if (this.checkParameter(name)) {
+      this.table[name].type = newType;
+      return true;
+    } else {
+      throw new Error(`'${name}' not defined.`);
+    }
+  }
+
+  getAddress(name) {
+    if (this.checkParameter(name)) {
+      return this.table[name].address;
+    } else {
+      return false;
+    }
+  }
+
+  getType(name) {
+    if (this.checkParameter(name)) {
+      return this.table[name].type;
+    } else {
+      return false;
+    }
+  }
+
+  updateKey(key, newKey) {
+    if (this.checkParameter(key)) {
+      let value = this.table[key];
+      value.name = newKey;
+      this.table[newKey] = value;
+      delete this.table[key];
+    } else {
+      throw new Error("ERROOOR DURING UPDATE");
+    }
+  }
+}
+
+class VarTable {
+  constructor() {
+    this.table = {};
+    this.localIntCounter = 10000;
+    this.localFloatCounter = 12500;
+  }
+
+  getTable() {
+    return this.table;
+  }
+
+  getLocalVariables() {
+    const filteredVars = Object.values(this.table).filter(
+      (variable) => variable.address >= 10000 && variable.address < 15000
+    );
+    return filteredVars.length;
+  }
+
+  addVar(name, type, functionType) {
+    if (!this.checkVar(name)) {
+      let address;
+      if (type === "int") {
+        if (functionType && functionType == "void") {
+          if (this.localIntCounter < 12500) {
+            address = this.localIntCounter++;
+          } else {
+            throw new Error(`Memory limit reached for type '${type}'`);
+          }
+        } else {
+          if (globalIntCounter < 3000) {
+            address = globalIntCounter++;
+          } else {
+            throw new Error(`Memory limit reached for type '${type}'`);
+          }
+        }
+      } else if (type === "float") {
+        if (functionType && functionType == "void") {
+          if (this.localFloatCounter < 15000) {
+            address = this.localFloatCounter++;
+          } else {
+            throw new Error(`Memory limit reached for type '${type}'`);
+          }
+        } else {
+          if (globalFloatCounter < 5000) {
+            address = globalFloatCounter++;
+          } else {
+            throw new Error(`Memory limit reached for type '${type}'`);
+          }
         }
       } else {
         throw new Error(`Unknown type '${type}'`);
