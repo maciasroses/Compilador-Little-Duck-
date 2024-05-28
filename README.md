@@ -234,9 +234,9 @@ El archivo se divide en 2 secciones: la primera antes del signo de $ se encuentr
 
 La máquina virtual separa las 2 secciones, guardando los cuádruplos y las constantes con la siguiente estructura:
 
-> Cuádruplos: [ <br/> > [ 'DIROPER', 'DIRARG1', 'DIRARG2', 'DIRRES' ], <br/>
+> Cuádruplos: [ <br/> [ 'DIROPER', 'DIRARG1', 'DIRARG2', 'DIRRES' ], <br/>
 > ... <br/>
-> ] <br/> > <br/>
+> ] <br/>
 > Constantes: { <br/>
 > 'DIRECCION': VALOR, <br/>
 > ... <br/>
