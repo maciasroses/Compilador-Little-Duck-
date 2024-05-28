@@ -264,11 +264,11 @@ Por otro lado, esto impactó también en cómo se genera el archivo compilado li
 
 Por lo que, también hubo cambios en la máquina virtual y sus secciones, agregando una tercera para guardar las funciones de la siguiente manera:
 
-> ...
-> Funciones: {
-> 'FUNCNAME': { FUNCTYPE, CUADRUPLOINICIOFUNC },
-> ...
-> }
+> ... <br/>
+> Funciones: { <br/>
+> 'FUNCNAME': { FUNCTYPE, CUADRUPLOINICIOFUNC }, <br/>
+> ... <br/>
+> } <br/>
 
 Ahora, los cambios dentro del intérprete para la ejecución de las funciones fueron los siguientes:
 
@@ -287,9 +287,10 @@ Ahora, los cambios dentro del intérprete para la ejecución de las funciones fu
 - Cambios al establecer un valor: Idéntico al primer cambio en la función para obtener el valor de una variable o constante, si estamos en un segmento local, ésta se establece en la memoria local y no en la global.
 
 - Cambios en el Switch para los cuádruplos especiales en caso de una función:
-  - Cuádruplo ERA: Se mete al stack de llamadas la memoria local actual (el primer valor siempre será un NULL). Además, se inicializa la memoria con el segmento LOCAL. Por último, se reinician los contadores globales del índice actual de variables enteras y locales para los argumentos
+  - Cuádruplo ERA: Se mete al stack de llamadas la memoria local actual (el primer valor siempre será un NULL). Además, se inicializa la memoria con el segmento LOCAL. Por último, se reinician los contadores globales del índice actual de variables enteras y locales para los argumentos.
   - Cuádruplo PARAM: Se crea una variable auxiliar para alinear la base del argumento a mandar, donde, con ayuda de la función creada (verifyVarRangeForLocalMemory) se determina si es INT o FLOAT, aumentando el contador global del índice actual de la variable que haya sido, donde además, si fue float, se le suma 2500 al índice por la diferencia que existe entre el rango de memoria local de INT y FLOAT. Por último, se guarda el valor del ARG1 en la memoria local actual en el índice calculado.
   - Cuádruplo GOSUB: Se mete al stack el número del cuádruplo en el que el apuntador se quedó, sabiendo a dónde retornar. Después de eso, ya podemos rederigir el apuntador a donde se supone que inicia la ejecución de la función que se está llamando, información que podemos obtener de la tabla de funciones de acuerdo al RES.
+  - Cuádruplo ENDFUNC: Obtiene del stack de llamadas la última dirección, esto con el objetivo de saber en dónde se quedó y redirigir al apuntador de nuevo ahí. Por otro lado, se también se recupera la memoria local anterior, en caso de que se haya llamado una función dentro de otra, asegurando el volver al contexto anterior. Por último, se reinician los contadores globales del índice actual de variables enteras y locales para los argumentos.
 
 Por último, fuera de las funciones, se creó un archivo especial para escuchar los errores, ya sean léxicos o sintácticos, cambiando mi index.js en la parte del compilado para poder mostrar cualquier tipo de error.
 
