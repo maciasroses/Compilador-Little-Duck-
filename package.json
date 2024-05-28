@@ -12,7 +12,11 @@
   "license": "ISC",
   "description": "Este proyecto es la base para la generación de un código propio de compiladores, partiendo desde la generación de la sintaxis y la semántica de un lenguaje de programación basado en LittleDuck post bautizado como PHMaci.",
   "dependencies": {
+    "@types/antlr4": "^4.11.6",
     "antlr4": "^4.13.1-patch-1",
     "fs": "^0.0.1-security"
+  },
+  "devDependencies": {
+    "@types/node": "^20.12.12"
   }
 }

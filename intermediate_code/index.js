@@ -1,11 +1,12 @@
 import antlr4 from "antlr4";
 import LittleDuckLexer from "./antlr/LittleDuckLexer.js";
 import LittleDuckParser from "./antlr/LittleDuckParserParser.js";
-import { FunctionDir } from "./semantic.js";
+import { FunctionDir, ConstantTable } from "./semantic.js";
 import { QuadrupleTable } from "./quadruple.js";
 import semanticCube from "./semanticCube.js";
 import fs from "fs";
 import readline from "readline";
+import MyErrorListener from "./antlr/ErrorListener.js";
 
 const userInput = readline.createInterface({
   input: process.stdin,
@@ -20,38 +21,67 @@ userInput.question("Nombre del archivo sin extensión: ", (fileName) => {
     (err, data) => {
       if (err) {
         userInput.close();
-        throw new Error("No se pudo leer el archivo");
+        console.error("No se pudo leer el archivo");
+        return;
       }
-      const chars = new antlr4.InputStream(data);
-      const lexer = new LittleDuckLexer(chars);
-      const tokens = new antlr4.CommonTokenStream(lexer);
-      const parser = new LittleDuckParser(tokens);
 
-      const programFunc = new FunctionDir();
-      const quadruple = new QuadrupleTable();
-      parser.programFunc = programFunc;
-      parser.quadruple = quadruple;
-      parser.semanticCube = semanticCube;
+      try {
+        const chars = new antlr4.InputStream(data);
+        const lexer = new LittleDuckLexer(chars);
+        const tokens = new antlr4.CommonTokenStream(lexer);
+        const parser = new LittleDuckParser(tokens);
 
-      const tree = parser.program();
+        const lexerErrorListener = new MyErrorListener();
+        const parserErrorListener = new MyErrorListener();
+        lexer.removeErrorListeners();
+        parser.removeErrorListeners();
+        lexer.addErrorListener(lexerErrorListener);
+        parser.addErrorListener(parserErrorListener);
 
-      console.log("ENTREGA $1 - Árbol de análisis sintáctico:\n");
-      console.log(tree.toStringTree(parser.ruleNames));
-      console.log("\n");
-      console.log(
-        "ENTREGA $2 - Directorio de funciones con sus tablas de variables\n"
-      );
-      programFunc.getDir();
-      console.log("\n");
-      console.log("ENTREGA $3 - Generación de Cuádruplos\n");
-      quadruple.printQuadrupleTable();
-      console.log("\n");
-      console.log("ENTREGA $4 - Máquina Virtual...\n");
-      console.log(
-        'Para interpretar el archivo compilado, corra el comando: "npm run interpret"\n'
-      );
+        const programFunc = new FunctionDir();
+        const constantsTable = new ConstantTable();
+        const quadruple = new QuadrupleTable();
 
-      userInput.close();
+        parser.programFunc = programFunc;
+        parser.constantTable = constantsTable;
+
+        parser.quadruple = quadruple;
+        parser.semanticCube = semanticCube;
+
+        const tree = parser.program();
+
+        const lexerErrors = lexerErrorListener.getErrors();
+        const parserErrors = parserErrorListener.getErrors();
+
+        if (lexerErrors.length > 0) {
+          throw new Error(`Errores léxicos: \n${lexerErrors.join("\n")}`);
+        }
+
+        if (parserErrors.length > 0) {
+          throw new Error(`Errores sintácticos: \n${parserErrors.join("\n")}`);
+        }
+
+        console.log("ENTREGA $1 - Árbol de análisis sintáctico:\n");
+        console.log(tree.toStringTree(parser.ruleNames));
+        console.log("\n");
+        console.log(
+          "ENTREGA $2 - Directorio de funciones con sus tablas de variables\n"
+        );
+        programFunc.getDir();
+        console.log("\n");
+        console.log("ENTREGA $3 - Generación de Cuádruplos\n");
+        quadruple.printQuadrupleTable();
+        console.log("\n");
+        console.log("ENTREGA $4 - Máquina Virtual...\n");
+        console.log(
+          'Para interpretar el archivo compilado, corra el comando: "npm run interpret"\n'
+        );
+      } catch (error) {
+        console.error("Se encontró un error durante el análisis:");
+        console.error(error.message);
+      } finally {
+        userInput.close();
+      }
     }
   );
 });
