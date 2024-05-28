@@ -1,6 +1,6 @@
-# Compiladores. Little Duck - PHMaci
+# Compiladores. Little Duck - PHMacia$
 
-## Entrega $0
+## Entrega $0 - Diseño
 
 <img src="./assets/proyecto.png" alt="Reglas del lenguaje - DIAGRAMA DEL PROYECTO" />
 
@@ -17,7 +17,7 @@
 - ( ) { } [ ] , : ;
 - \+ \- \* / = > < !=
 
-## Entrega $1
+## Entrega $1 - Léxico y Sintáxis
 
 La investigación de herramientas resultó sencillo gracias a un repositorio que recogía las principales herramientas para el propósito de la entrega:
 
@@ -56,7 +56,7 @@ Ahora, la forma de correr compilar los tests es de la siguiente forma:
 
 _En esta entrega solo se muestra en consola el árbol de análisis sintáctico._
 
-## Entrega $2
+## Entrega $2 - Semántica de Variables
 
 En esta etapa, el primer paso fue decidir qué tipo de estructura se usaría para la parte de la semántica del directorio de funciones y sus tablas de variables, yéndonos por el camino más ágil por _llaves_ como lo son los **diccionarios** y seccionadas en clases.
 Por otro lado, también se tuvo que crear el cubo semántico (el cual **no** haremos uso de él **todavía**) para tener los tipos que arrojaría cuando se haga uso de un operador. Para estos casos, decidí hacer una tabla, donde **I** es igual a _INTEGER_, mientras que **F** es igual a _FLOAT_, siendo los únicos dos tipos de variable con los que cuenta nuestro programa; pudiendo interacturar con distintos operadores y demostrando una salida para cuando X variable de cierto tipo (I o F) se procesan de acuerdo al operador.
@@ -115,11 +115,11 @@ Después, se establecieron los puntos neurálgicos
 
 _En esta entrega, además de mostrar en consola el árbol de análisis sintáctico, se muestra el directorio de funciones con sus tablas de variables._
 
-### Entrega $2.5
+### Entrega $2.5 - Abandono de Listeners \:(
 
 De acuerdo al commit anterior, se decidió cambiar la lógica de la semántica que estaba puesta en los listeners para ponerla directamente en el parser, esto para que vaya más acorde con lo solicitado en la entrega 3. Afortunádamente, los puntos neurálgicos siguen siendo los mismos y la funcionalidad también, siendo un cambio mínimo que al final del día es imperceptible y no afecta para el resultado final.
 
-## Entrega $3
+## Entrega $3 - Código de Expresiones y Estatutos
 
 Durante esta entrega se desarrollaron las soluciones programáticas para la generación de los cuádruplos tanto para expresiones aritméticas y relacionales, como para los estatus lineas y no lineales, implicando el establecido de los puntos neurálgicos en el resto de los diagramas.
 
@@ -206,13 +206,13 @@ Por último, se creó la tabla de rangos de memoria en cuanto a los tipos de var
 
 _En esta entrega, además de mostrar en consola el árbol de análisis sintáctico y el directorio de funciones con sus tablas de variables, se muestran en una tabla los cuádruplos compilados (aún sin representación de dirección de memoria ni consideración de tipos)._
 
-### Entrega $3.5
+### Entrega $3.5 - Direcciones de Memoria
 
 En esta parte, después de un par de días de la fecha de entrega correspondiente a la Entrega 3, se cambió a que los cuádruplos se generaran con direcciones de memoria de acuerdo a la tabla de rangos de memoria, y también se consideraran los tipos, usando el cubo semántico, implicando agregarle un atributo CODE al diccionario de acuerdo a la tabla de operadores planteada.
 
 Por otro lado, se ajustaron algunos puntos neurálgicos, los cambios fueron sobreescritos de acuerdo a la imagen correspondiente, incluyendo imágenes y descripciones, pero todos estos se pueden ver ya sea en la carpeta ASSETS o en el historia de versiones.
 
-## Entrega $4
+## Entrega $4 - Máquina Virtual (Ejecución/Interpretado)
 
 Para esta entrega, lo primero que se hizo fue reestructurar el proyecto y seccionarlo en carpetas, esto con el objetivo de tener un orden y separar las partes CÓDIGO INTERMEDIO (intermediate_code) y EJECUCIÓN (virtual_machine).
 
@@ -247,6 +247,8 @@ Después se inicializa la memoria de acuerdo al rango ya mencionado en la Entreg
 Para terminar, gracias a un apuntador que recorrerá cada uno de los cuádruplos, mientras que no llegue al final de los cuádruplos (el cual es el 12), y también a un switch que tendrás los casos de acuerdo al operador o acción a realizar (el inicio de cada uno de los cuádruplos), en caso de los operaciones aritméticas, establece el valor en memoria dependiendo su segmento (depende su rango, por ejemplo, si es mayor o igual a 1000, pero menor o igual a 4999, su segmento será GLOBAL) y dependiendo su base, siendo ésta la posición en el arreglo inicial de memoria donde se guardará su valor, tanto para el argumento 1 y para el argumento 2, los cuales, cuando se agregan, devuelven el valor y hacen la operación según el operador (cabe mencionar que, cuando hablamos de una variable, ésta tiene que estar inicializada, en caso contraario, mandará un error).
 En el caso de un print, debe tomar el valor RES del cuádruplo y obtener su valor, ocurriendo un error cuando se intenta impirmir una variable no inicializada, como ya se comentó anteriormente. En caso de que todo esté correcto o se imprima una constante, esos prints se irán apendizando a una función especial para los casos en donde hay varias cosas a imprimir en un solo print (esto incluye strings separados por comas, variables o cálculos), donde, si detecta un "\n" el acumulado termina y ya hace la impresión en consola, en otro caso, cuando cuádruplos de print son separados por otros cuádruplos.
 Para terminar, en el caso de los saltos (goto, gotot y gotof) se mueve la posición del apuntador al que apunte el cuádruplo del salto (menos 1 por manejar índices de 0), cambiando la lógica en cuanto gotot y gotof, cuando se obtiene el valor del que depende el salto, inviritiendo la lógica en estos casos, moviendo el apuntador si sí en gotof y si no en gotot. Para el goto, sencillamente se mueve al apuntor al parsear el resultado del cuádruplo menos 1.
+
+_En esta entrega, además de todo lo anterior de las entregas, ya se logra interpretar la información guardada en el archivo generado, pudiendo mostrar en consola lo que haría el programa compilado, con la única limitante de que solo lograba interpretar lo que hubiera en MAIN._
 
 ### Entrega $4.5 - Funciones
 
